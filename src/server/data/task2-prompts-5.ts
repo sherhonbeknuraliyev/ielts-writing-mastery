@@ -1,0 +1,162 @@
+export const task2Part5 = [
+  {
+    id: "t2-11",
+    type: "task2",
+    category: "two-part",
+    difficulty: "advanced",
+    prompt:
+      "In recent decades, urban populations have grown rapidly across the world. Why is urbanisation increasing? What problems does this create?",
+    modelAnswers: {
+      band7:
+        "Urbanisation has accelerated dramatically over recent decades, transforming demographic patterns in both developing and developed nations. This essay will examine the key drivers of this trend and the problems it generates.\n\nThe most important reason for rapid urbanisation is the concentration of economic opportunity in cities. Urban centres attract businesses and industries that offer higher wages and more diverse employment than rural areas can provide. Young people in particular move to cities to access better education, healthcare, and professional development. In developing countries, the mechanisation of agriculture has also pushed workers off the land, leaving cities as the primary destination for those seeking employment.\n\nHowever, rapid urban growth creates serious problems. Housing demand frequently outpaces supply, resulting in overcrowding, rising rents, and the expansion of informal settlements or slums where residents lack access to clean water, sanitation, and secure tenure. Cities with large migrant populations also experience pressure on public transport, schools, and hospitals.\n\nEnvironmental consequences are equally significant. Urban expansion consumes agricultural and green land, contributes to the urban heat island effect, and increases demand for energy and water. Air pollution from vehicles and industry concentrated in cities poses serious public health risks.\n\nSocial inequality also tends to worsen in rapidly urbanising cities, as wealthy and poor populations become spatially segregated, limiting social mobility and civic cohesion.\n\nIn conclusion, urbanisation is driven by economic and educational opportunity, but it creates significant challenges relating to housing, infrastructure, the environment, and inequality. Effective urban planning is essential to manage these pressures sustainably.",
+      band8:
+        "The relentless growth of the world's cities is among the most consequential demographic transformations of our era. By 2050, the United Nations projects that nearly seventy percent of humanity will live in urban areas — a trajectory driven by powerful structural forces and accompanied by equally formidable challenges.\n\nThe primary engine of urbanisation is the concentration of economic productivity in cities. Agglomeration effects — the clustering of firms, talent, and infrastructure — generate wages and opportunities that rural economies, often locked into low-productivity primary sectors, simply cannot replicate. Mechanisation has simultaneously eroded agricultural employment, releasing a labour surplus with few local alternatives. In parallel, urban areas monopolise access to quality tertiary education, specialist healthcare, and the professional networks essential for upward mobility, creating a self-reinforcing migration pull that diminishes with distance from city centres.\n\nThe consequences of unmanaged urban growth, however, are deeply troubling. Housing supply, constrained by land scarcity and regulatory barriers, chronically lags demand, inflating prices and expanding informal settlements where millions lack secure tenure, sanitation, and legal protection. Municipal infrastructure — transport networks, schools, hospitals, waste management — is routinely overwhelmed, degrading service quality precisely as population densities peak.\n\nEnvironmental pressures compound these social strains. Urban expansion encroaches on agricultural land and biodiversity corridors, while the concentration of industry and motorised transport generates air and water pollution of demonstrably harmful intensity. The urban heat island effect further imposes disproportionate health costs on low-income residents with least access to cooling.\n\nIn conclusion, urbanisation reflects rational economic behaviour, but its benefits remain profoundly unevenly distributed. Only through proactive, equity-centred urban governance can cities absorb growth without amplifying inequality.",
+    },
+    annotations: [
+      {
+        highlight: "Agglomeration effects — the clustering of firms, talent, and infrastructure — generate wages and opportunities that rural economies, often locked into low-productivity primary sectors, simply cannot replicate",
+        technique: "Technical economic terminology with embedded definition",
+        explanation: "'Agglomeration effects' is a precise economics term; the dashes provide an immediate definition, demonstrating both subject knowledge and clarity of expression.",
+      },
+      {
+        highlight: "a self-reinforcing migration pull that diminishes with distance from city centres",
+        technique: "Geographical-economic metaphor",
+        explanation: "Describing the pull as 'self-reinforcing' and noting it 'diminishes with distance' adds spatial and dynamic precision that elevates the analysis beyond simple cause-effect.",
+      },
+      {
+        highlight: "Housing supply, constrained by land scarcity and regulatory barriers, chronically lags demand",
+        technique: "Embedded participial phrase",
+        explanation: "The participial phrase 'constrained by land scarcity and regulatory barriers' is embedded mid-sentence, demonstrating the grammatical range examiners reward at Band 8.",
+      },
+      {
+        highlight: "the concentration of industry and motorised transport generates air and water pollution of demonstrably harmful intensity",
+        technique: "Adverbially qualified noun phrase",
+        explanation: "'Demonstrably harmful intensity' is a more precise, evidenced formulation than simply saying 'serious pollution', signalling an evidence-based academic register.",
+      },
+    ],
+    evaluationChecklist: [
+      "Did I address BOTH parts of the question — reasons AND problems?",
+      "Did I give at least two distinct reasons for urbanisation?",
+      "Did I discuss problems in more than one domain (e.g., housing, environment, inequality)?",
+      "Did I connect the reasons to the problems logically?",
+      "Did I use topic-specific vocabulary (agglomeration, urbanisation, informal settlements)?",
+      "Did I avoid spending all my words on causes and neglecting problems?",
+      "Did I develop each point with explanation rather than a list?",
+      "Did I use a variety of grammatical structures?",
+      "Did I write at least 250 words?",
+    ],
+    keyVocabulary: [
+      "urbanisation",
+      "agglomeration effects",
+      "labour surplus",
+      "informal settlements",
+      "secure tenure",
+      "urban heat island",
+      "biodiversity corridors",
+      "municipal infrastructure",
+      "mechanisation",
+      "spatial segregation",
+      "upward mobility",
+      "equity-centred governance",
+    ],
+    tips: [
+      "For two-part questions, allocate roughly equal word space to each part — one reason plus one problem is not enough.",
+      "Using UN statistics ('seventy percent by 2050') in your introduction immediately signals a well-informed candidate.",
+      "'Agglomeration' is a high-value economics term for urbanisation essays — use it confidently.",
+      "Go beyond housing and traffic: include environmental, social, and governance dimensions for a Band 8 range.",
+      "Your conclusion should not repeat points — synthesise by noting the gap between urbanisation's causes and its management.",
+    ],
+    sampleStructure: [
+      { paragraph: "Introduction", purpose: "Introduce the scale of urbanisation; signal two-part structure", sentenceCount: "2-3" },
+      { paragraph: "Body 1 — Reasons", purpose: "Economic agglomeration, mechanisation, education/healthcare pull", sentenceCount: "4-5" },
+      { paragraph: "Body 2 — Problems: social/housing", purpose: "Housing shortage, informal settlements, infrastructure pressure", sentenceCount: "4-5" },
+      { paragraph: "Body 3 — Problems: environment/inequality", purpose: "Land use, pollution, heat island, spatial inequality", sentenceCount: "3-4" },
+      { paragraph: "Conclusion", purpose: "Synthesise rational causes vs governance failure; call for equity-centred planning", sentenceCount: "2" },
+    ],
+    timeLimit: 40,
+    wordLimit: { min: 250, max: 300 },
+  },
+  {
+    id: "t2-12",
+    type: "task2",
+    category: "two-part",
+    difficulty: "expert",
+    prompt:
+      "In many countries, crime rates have remained persistently high. Why do people commit crimes? How can governments and communities reduce criminal behaviour?",
+    modelAnswers: {
+      band7:
+        "Crime is a persistent challenge in societies around the world, and understanding its causes is essential for designing effective responses. This essay will explore why people commit crimes and suggest measures to address the problem.\n\nThere are several reasons why individuals turn to crime. Economic inequality is perhaps the most significant: when people lack access to stable employment and cannot meet basic needs through legal means, some turn to theft or other property crimes. Social factors also play a role — growing up in environments characterised by neglect, domestic violence, or peer pressure towards criminal activity can normalise illegal behaviour. Additionally, in some cases, weak law enforcement and lenient sentencing reduce the perceived risk of committing crimes, making criminal behaviour more likely.\n\nTo reduce crime, governments must address its root causes. Investing in education and job creation in deprived areas reduces the economic desperation that drives many to offend. Social support programmes — including mental health services, youth centres, and family counselling — can interrupt the cycle of disadvantage before it leads to criminal behaviour.\n\nAt the same time, effective law enforcement remains important. Police community engagement, rather than purely punitive policing, builds trust and makes communities more willing to report suspicious activity. Rehabilitation-focused prison programmes are also more effective at preventing reoffending than purely punitive sentences.\n\nIn conclusion, crime arises from a complex interplay of economic, social, and systemic factors. Reducing it requires both upstream investment in social conditions and more intelligent, rehabilitative approaches to criminal justice.",
+      band8:
+        "The persistence of high crime rates across diverse societies points to a phenomenon whose causes are far too complex to be attributed to individual moral failure alone. Understanding criminal behaviour requires an examination of the structural conditions that make crime a rational, or at least comprehensible, response for certain individuals — and that understanding must inform the design of effective countermeasures.\n\nThe most robustly documented driver of crime is socioeconomic deprivation. Strain theory, developed by sociologist Robert Merton, posits that crime emerges when individuals accept culturally promoted goals — material success, status — yet find legitimate pathways to those goals blocked by poverty, poor education, or discrimination. Beyond economics, adverse childhood experiences — exposure to violence, parental incarceration, unstable housing — are among the strongest predictors of subsequent criminal behaviour, operating through mechanisms of impaired emotional regulation and diminished future orientation. Institutional failures compound these vulnerabilities: communities with fragmented social cohesion, distrust of law enforcement, and inadequate public services offer neither the informal social controls nor the formal support systems that deter offending.\n\nEffective responses must therefore operate at multiple levels simultaneously. At the structural level, investments in early childhood education, affordable housing, and labour market inclusion address the root conditions from which crime grows. Community policing models — where officers are embedded in neighbourhoods as problem-solvers rather than enforcers — rebuild the institutional trust necessary for effective deterrence. Within criminal justice itself, evidence consistently demonstrates that rehabilitative sentencing, combining therapeutic intervention with vocational training, produces substantially lower reoffending rates than incarceration focused purely on punishment.\n\nIn conclusion, crime is best understood as a systemic failure rather than a personal one. Lasting reduction demands structural investment, trust-based policing, and a criminal justice philosophy oriented towards reintegration rather than retribution.",
+    },
+    annotations: [
+      {
+        highlight: "Strain theory, developed by sociologist Robert Merton, posits that crime emerges when individuals accept culturally promoted goals — material success, status — yet find legitimate pathways to those goals blocked",
+        technique: "Named theoretical framework",
+        explanation: "Citing a specific social theory (Strain Theory, Merton) with its core claim demonstrates intellectual depth and precise engagement with the topic at expert level.",
+      },
+      {
+        highlight: "operating through mechanisms of impaired emotional regulation and diminished future orientation",
+        technique: "Psychological precision",
+        explanation: "Explaining HOW adverse childhood experiences cause crime ('impaired emotional regulation') rather than simply saying they do reflects the analytical depth of Band 8+ writing.",
+      },
+      {
+        highlight: "neither the informal social controls nor the formal support systems that deter offending",
+        technique: "Parallel negation structure",
+        explanation: "'Neither...nor' with parallel noun phrases ('informal social controls'/'formal support systems') demonstrates precise grammatical control and elegant symmetry.",
+      },
+      {
+        highlight: "crime is best understood as a systemic failure rather than a personal one",
+        technique: "Reframing conclusion",
+        explanation: "The conclusion reframes the entire discussion with a concise, memorable antithesis ('systemic vs personal'), making the essay's thesis clear and sophisticated.",
+      },
+      {
+        highlight: "a criminal justice philosophy oriented towards reintegration rather than retribution",
+        technique: "Policy philosophy contrast",
+        explanation: "The contrast between 'reintegration' and 'retribution' is a precise criminology distinction that signals advanced domain knowledge and lexical range.",
+      },
+    ],
+    evaluationChecklist: [
+      "Did I address BOTH parts — causes of crime AND solutions?",
+      "Did I go beyond 'poverty causes crime' to include social and institutional factors?",
+      "Did I refer to any named theory, evidence, or real programme?",
+      "Did I propose solutions at multiple levels (structural, policing, justice system)?",
+      "Did I use criminology-specific vocabulary (reoffending, deterrence, rehabilitation)?",
+      "Did I avoid moralising language ('criminals are bad people')?",
+      "Did I demonstrate understanding that crime is systemic, not purely individual?",
+      "Did I use at least three different complex sentence structures?",
+      "Did I write at least 250 words?",
+      "Is my conclusion a synthesis, not a repetition of the introduction?",
+    ],
+    keyVocabulary: [
+      "socioeconomic deprivation",
+      "strain theory",
+      "adverse childhood experiences",
+      "emotional regulation",
+      "institutional trust",
+      "social cohesion",
+      "community policing",
+      "rehabilitative sentencing",
+      "recidivism",
+      "retribution",
+      "reintegration",
+      "deterrence",
+    ],
+    tips: [
+      "Referencing a named theory (Strain Theory, Merton) signals expert-level engagement — examiners notice this.",
+      "Explain mechanisms: don't just say 'poverty leads to crime' — explain WHY through blocked legitimate pathways.",
+      "Expert-level essays distinguish between deterrence, rehabilitation, and retribution as justice philosophies.",
+      "Avoid language that blames individuals entirely — frame crime as a systemic issue for higher Task Achievement.",
+      "Structure solutions to mirror causes: if you identify structural causes, propose structural solutions.",
+    ],
+    sampleStructure: [
+      { paragraph: "Introduction", purpose: "Establish complexity of crime's causes; signal two-part analysis", sentenceCount: "2-3" },
+      { paragraph: "Body 1 — Causes of crime", purpose: "Economic deprivation (strain theory), adverse childhood, institutional failure", sentenceCount: "5-6" },
+      { paragraph: "Body 2 — Government/structural solutions", purpose: "Early education, housing, labour inclusion, community policing", sentenceCount: "4-5" },
+      { paragraph: "Body 3 — Criminal justice solutions", purpose: "Rehabilitation over retribution; vocational training in prisons", sentenceCount: "3-4" },
+      { paragraph: "Conclusion", purpose: "Reframe as systemic failure; call for reintegration philosophy", sentenceCount: "2" },
+    ],
+    timeLimit: 40,
+    wordLimit: { min: 250, max: 300 },
+  },
+];

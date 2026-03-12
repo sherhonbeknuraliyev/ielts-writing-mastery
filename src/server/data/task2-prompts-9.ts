@@ -1,0 +1,162 @@
+export const task2Part9 = [
+  {
+    id: "t2-21",
+    type: "task2",
+    category: "discussion",
+    difficulty: "intermediate",
+    prompt:
+      "Some people think that the government should provide free housing for people who cannot afford it. Others believe that other methods could be used to help them. Discuss both views and give your opinion.",
+    modelAnswers: {
+      band7:
+        "Housing affordability is a pressing concern in many countries, with growing numbers of people unable to meet the costs of renting or buying a home. Some argue that governments should directly provide free housing for those on low incomes, while others believe that alternative measures would be more effective. In my view, a combination of approaches is the most sensible solution.\n\nProponents of government-provided free housing argue that secure accommodation is a fundamental human right, and that the market alone cannot guarantee housing for the poorest members of society. Countries such as Finland have implemented 'housing first' policies that provide stable accommodation before addressing other issues such as unemployment or addiction, and these programmes have demonstrated measurable success in reducing homelessness. For the most vulnerable individuals, direct provision removes the insecurity that makes it almost impossible to find employment or access other forms of support.\n\nHowever, critics argue that mass free housing provision is prohibitively expensive for governments and may create dependency rather than empowering people to achieve financial independence. Alternative approaches include housing subsidies or vouchers that allow low-income individuals to rent from private landlords, planning reforms that encourage the construction of more affordable homes, and rent control policies that prevent excessive increases. These approaches can support a greater number of people at lower cost than direct provision.\n\nIn my opinion, the government has a responsibility to ensure that no one is homeless, but free housing should be targeted at those with the greatest needs — particularly the long-term homeless and vulnerable families — while broader housing affordability should be addressed through market-based and regulatory reforms.\n\nIn conclusion, both direct provision and alternative policies have a role to play, and the most effective approach combines targeted housing support with structural reforms to increase affordable housing supply.",
+      band8:
+        "Few policy questions more directly test a society's commitment to social solidarity than how it chooses to house its least economically secure members. The debate between direct government provision and alternative market or regulatory interventions reflects deeper disagreements about the role of the state, the limits of market mechanisms, and the conditions necessary for human dignity.\n\nThe case for government-provided housing rests on both rights-based and empirical grounds. Article 25 of the Universal Declaration of Human Rights recognises adequate housing as a component of the right to an adequate standard of living — a recognition that the market, operating without correction, demonstrably fails to honour for a significant minority of the population. More pragmatically, Finland's internationally recognised 'Housing First' programme illustrates that stable, unconditional accommodation is not merely a social good in itself but a precondition for addressing the associated challenges of unemployment, addiction, and mental ill-health that perpetuate homelessness. Where housing insecurity is removed, the ancillary costs to public health systems, emergency services, and criminal justice are substantially reduced, making direct provision fiscally defensible as well as morally compelling.\n\nNevertheless, direct provision at scale generates legitimate concerns. Universal free housing risks crowding out private investment, creating benefit-dependency traps that reduce the incentive to seek employment, and imposing fiscal burdens that may ultimately undermine the broader public service provision from which low-income households most benefit. The alternative toolkit — housing benefit vouchers, inclusionary zoning requirements, social housing rental subsidies, and planning reform to stimulate supply — can address affordability for a wider population at comparable or lower public cost while preserving greater autonomy and labour market incentives.\n\nMy own view is that the choice is not binary. A tier of unconditional provision for the chronically homeless and most vulnerable is both justified and cost-effective on the evidence; a second tier of targeted subsidies and structural supply-side reform is better suited to the broader affordability challenge.\n\nIn conclusion, effective housing policy requires both the moral commitment to guarantee shelter for the most vulnerable and the structural intelligence to reform the market conditions that make poverty housing an enduring problem.",
+    },
+    annotations: [
+      {
+        highlight: "Few policy questions more directly test a society's commitment to social solidarity than how it chooses to house its least economically secure members",
+        technique: "Inverted comparative opening",
+        explanation: "Starting with 'Few questions...' is an inverted structure that creates immediate rhetorical impact, positioning the essay as both policy-aware and ethically engaged from the first sentence.",
+      },
+      {
+        highlight: "stable, unconditional accommodation is not merely a social good in itself but a precondition for addressing the associated challenges",
+        technique: "Not merely... but construction",
+        explanation: "'Not merely X but Y' is an elegant structure for upgrading an argument — housing is not just good, it is a precondition for other improvements; this chain of reasoning is more sophisticated than simple cause-effect.",
+      },
+      {
+        highlight: "inclusionary zoning requirements, social housing rental subsidies, and planning reform to stimulate supply",
+        technique: "Specific policy vocabulary list",
+        explanation: "Naming three distinct policy instruments ('inclusionary zoning', 'rental subsidies', 'planning reform') demonstrates knowledge of the actual policy landscape, elevating the essay above vague 'the government should help'.",
+      },
+      {
+        highlight: "the moral commitment to guarantee shelter for the most vulnerable and the structural intelligence to reform the market conditions",
+        technique: "Parallel paired conclusion",
+        explanation: "Closing with two parallel noun phrases ('moral commitment' / 'structural intelligence') creates a balanced, memorable formulation that encapsulates the essay's central argument with rhetorical elegance.",
+      },
+    ],
+    evaluationChecklist: [
+      "Did I discuss BOTH the free housing view AND the alternative methods view?",
+      "Did I state my own opinion clearly?",
+      "Did I include a specific country example (Finland's Housing First)?",
+      "Did I explain WHY free housing can be effective, not just say it is?",
+      "Did I name specific alternatives (vouchers, zoning, rent control) rather than vague 'other methods'?",
+      "Did I address the fiscal argument about cost?",
+      "Did I consider both rights-based and pragmatic arguments?",
+      "Did I use housing policy vocabulary (affordable housing, homelessness, subsidy, zoning)?",
+      "Did I write at least 250 words?",
+      "Is my conclusion a synthesis and not a simple repetition?",
+    ],
+    keyVocabulary: [
+      "housing affordability",
+      "homelessness",
+      "Housing First",
+      "housing benefit voucher",
+      "inclusionary zoning",
+      "social housing",
+      "rent control",
+      "benefit dependency",
+      "planning reform",
+      "social solidarity",
+      "rights-based approach",
+      "market failure",
+    ],
+    tips: [
+      "Finland's Housing First programme is the strongest real-world example for the government provision side — always use it.",
+      "Specific alternatives (vouchers, inclusionary zoning) score much higher than vague 'financial support' or 'subsidies'.",
+      "Acknowledge the fiscal cost argument for free housing — failing to do so makes your discussion look one-sided.",
+      "The most sophisticated essays argue for a tiered approach: unconditional provision for the most vulnerable, broader reforms for general affordability.",
+      "Rights-based arguments (UDHR Article 25) add a legal/international dimension that elevates the discussion.",
+    ],
+    sampleStructure: [
+      { paragraph: "Introduction", purpose: "Introduce housing affordability crisis; outline two positions; state tiered view", sentenceCount: "2-3" },
+      { paragraph: "Body 1 — Case for free housing", purpose: "Rights basis (UDHR), Housing First evidence, cost-effectiveness argument", sentenceCount: "4-5" },
+      { paragraph: "Body 2 — Case for alternative methods", purpose: "Vouchers, zoning, planning reform, cost and dependency concerns", sentenceCount: "4-5" },
+      { paragraph: "Conclusion", purpose: "Tiered approach: direct provision for most vulnerable + structural reform for broader affordability", sentenceCount: "2" },
+    ],
+    timeLimit: 40,
+    wordLimit: { min: 250, max: 300 },
+  },
+  {
+    id: "t2-22",
+    type: "task2",
+    category: "two-part",
+    difficulty: "expert",
+    prompt:
+      "Many museums charge for admission while others are free. What are the advantages of charging admission? Do you think the advantages outweigh the disadvantages?",
+    modelAnswers: {
+      band7:
+        "Museums occupy a unique place in cultural life, serving both as repositories of knowledge and as public institutions with responsibilities to society. The question of whether they should charge for admission generates debate about access, funding, and cultural value.\n\nThe advantages of charging admission are primarily financial. Revenue from ticket sales allows museums to fund high-quality exhibitions, conserve artefacts, and pay skilled staff without relying entirely on government funding. This financial independence gives museums greater freedom to pursue ambitious programmes. Charging can also be seen as a form of fair resource allocation: those who benefit from the service contribute towards its costs, relieving the general taxpayer of the full financial burden.\n\nAdditionally, admission charges can help manage visitor numbers. Free museums in major cities sometimes experience overcrowding, which can damage artefacts and degrade the visitor experience. A modest entry fee may reduce excessive foot traffic while maintaining access for those who genuinely wish to visit.\n\nHowever, the disadvantages of charging are significant. The most important is the issue of access: entry fees act as a barrier for low-income families, students, and unemployed people, effectively excluding them from cultural and educational resources that are part of the shared heritage of society. Research in the UK found that when major national museums became free in 2001, visitor numbers increased dramatically, particularly among lower socioeconomic groups.\n\nIn my view, the disadvantages outweigh the advantages. Museums are repositories of shared cultural heritage, and their benefits should be available to all, regardless of income. Governments should provide sufficient funding to make museum admission free, while museums can generate supplementary income through gift shops, special events, and temporary exhibitions.\n\nIn conclusion, while admission charges offer financial advantages, the principle of universal access to culture justifies a free model supported by public funding.",
+      band8:
+        "The admission pricing policies of cultural institutions encapsulate a fundamental tension between the imperatives of financial sustainability and those of democratic access. Whether the advantages of charging admission outweigh the disadvantages depends ultimately on what conception of the museum's public function one finds most compelling.\n\nThe case for admission charges is rooted principally in economics. Income generated through ticket sales reduces dependency on government appropriations, giving museum leadership the operational autonomy to mount ambitious conservation programmes, attract world-class curatorial talent, and commission temporary exhibitions of genuine scholarly significance. In systems of constrained public finance — the prevailing condition across most OECD nations since 2008 — the alternative to admission revenue is often not 'free access funded by the state' but 'reduced programming funded by the state', making charges an instrument of quality preservation rather than exclusion. There is also an economic equity argument: general taxation finances public institutions regardless of usage, creating a subsidy from non-visitors to visitors that flat-rate admission pricing can partially correct.\n\nNevertheless, the disadvantages of charging are, in my view, more fundamental. Museums house the accumulated cultural patrimony of civilisation — artefacts, artworks, and archives whose creation was rarely funded privately and whose value is inherently collective. Pricing this heritage at the point of access imposes a means test on cultural participation that is incompatible with the principle of shared inheritance. The empirical evidence is stark: when the United Kingdom's major national museums abolished admission charges in 2001, annual attendance increased by approximately seventy-five percent within two years, with the largest proportional increases recorded among visitors from lower socioeconomic backgrounds and ethnic minority communities — precisely those groups most systematically underrepresented in cultural institutions. Charging does not merely inconvenience low-income visitors; it reproduces and entrenches patterns of cultural exclusion.\n\nThe apparent dilemma between access and funding is, moreover, largely false. Diversified revenue streams — commercial events, corporate sponsorship, premium exhibitions, retail and catering operations — have enabled institutions such as the Smithsonian and the British Museum to operate without general admission charges while maintaining financial health.\n\nIn conclusion, the financial rationale for charging is real but soluble through alternative means; the access rationale against charging reflects an irreducible principle of cultural democracy that admission fees directly and measurably violate.",
+    },
+    annotations: [
+      {
+        highlight: "the alternative to admission revenue is often not 'free access funded by the state' but 'reduced programming funded by the state'",
+        technique: "False dichotomy correction",
+        explanation: "Reframing the 'free vs charged' binary as 'charged vs reduced quality' is a sophisticated argumentative move — engaging with the strongest version of the pro-charging argument before refuting it.",
+      },
+      {
+        highlight: "a means test on cultural participation that is incompatible with the principle of shared inheritance",
+        technique: "Rights-language applied to culture",
+        explanation: "'Means test' (borrowed from welfare policy) applied to museum access is a precise and provocative framing; 'shared inheritance' names the cultural principle at stake in concrete terms.",
+      },
+      {
+        highlight: "annual attendance increased by approximately seventy-five percent within two years, with the largest proportional increases recorded among visitors from lower socioeconomic backgrounds",
+        technique: "Specific quantitative evidence with demographic detail",
+        explanation: "A specific statistic ('seventy-five percent') with the demographic breakdown ('lower socioeconomic backgrounds') converts a general claim about access into a precisely evidenced argument.",
+      },
+      {
+        highlight: "the financial rationale for charging is real but soluble through alternative means; the access rationale against charging reflects an irreducible principle",
+        technique: "Asymmetric weighing of two arguments",
+        explanation: "Acknowledging that the pro-charging argument is 'real' while calling it 'soluble', and the access argument 'irreducible' (unable to be resolved or worked around), shows the precise logical basis for the essay's conclusion.",
+      },
+      {
+        highlight: "Diversified revenue streams — commercial events, corporate sponsorship, premium exhibitions, retail and catering operations — have enabled institutions such as the Smithsonian and the British Museum",
+        technique: "Named institutions with specific alternatives",
+        explanation: "The Smithsonian and British Museum are world-famous free institutions — naming them as evidence that free admission IS financially viable makes the argument empirically grounded.",
+      },
+    ],
+    evaluationChecklist: [
+      "Did I address both advantages of charging AND whether they outweigh disadvantages?",
+      "Did I give more than one advantage of charging?",
+      "Did I discuss disadvantages in terms of access, equity, and cultural principle?",
+      "Did I use the UK 2001 free admission evidence?",
+      "Did I name specific free museums (Smithsonian, British Museum) as evidence that free is viable?",
+      "Did I take a clear position on whether advantages outweigh disadvantages?",
+      "Did I use cultural/economic vocabulary (patrimony, curatorial, subsidy, diversified revenue)?",
+      "Did I avoid a purely balanced 'both sides' ending?",
+      "Did I write at least 250 words?",
+      "Did I use at least three distinct complex sentence structures?",
+    ],
+    keyVocabulary: [
+      "cultural patrimony",
+      "admission charges",
+      "democratic access",
+      "curatorial talent",
+      "public appropriations",
+      "diversified revenue",
+      "cultural exclusion",
+      "shared inheritance",
+      "operational autonomy",
+      "socioeconomic representation",
+      "corporate sponsorship",
+      "means test",
+    ],
+    tips: [
+      "The UK's 2001 abolition of museum charges is the single most important piece of evidence for the access argument — use it with the statistic.",
+      "Name the Smithsonian and British Museum as proof that free museums can be financially sustainable.",
+      "The equity argument is strengthened by pointing out that general taxation already funds museums — charging is a double payment for low earners.",
+      "Expert responses reframe the 'financial necessity' argument: it is not 'charge or close' but 'charge or diversify revenue'.",
+      "'Cultural patrimony' and 'shared inheritance' are precise, elevated formulations for 'museums belong to everyone' — use them.",
+    ],
+    sampleStructure: [
+      { paragraph: "Introduction", purpose: "Frame tension between financial sustainability and democratic access; signal your position", sentenceCount: "2-3" },
+      { paragraph: "Body 1 — Advantages of charging", purpose: "Financial independence, quality programming, corrective equity argument", sentenceCount: "4-5" },
+      { paragraph: "Body 2 — Disadvantages (access and principle)", purpose: "Exclusion of low-income groups, UK 2001 evidence, cultural patrimony argument", sentenceCount: "4-5" },
+      { paragraph: "Body 3 — Rebuttal of financial necessity", purpose: "Smithsonian/British Museum; diversified revenue; false dilemma", sentenceCount: "3-4" },
+      { paragraph: "Conclusion", purpose: "Financial argument is soluble; access principle is irreducible; disadvantages outweigh", sentenceCount: "2" },
+    ],
+    timeLimit: 40,
+    wordLimit: { min: 250, max: 300 },
+  },
+];

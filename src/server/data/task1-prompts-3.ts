@@ -1,0 +1,175 @@
+export const task1Part3 = [
+  {
+    id: "t1-07",
+    type: "task1-academic",
+    category: "bar-chart",
+    difficulty: "intermediate",
+    prompt:
+      "The bar chart below shows the average daily commute time (in minutes) for workers in six cities. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    chartData: {
+      type: "bar",
+      title: "Average Daily Commute Time in Six Cities (minutes)",
+      labels: ["Mumbai", "London", "New York", "Tokyo", "Sydney", "Toronto"],
+      datasets: [
+        {
+          label: "Average daily commute (minutes)",
+          data: [84, 74, 72, 68, 55, 63],
+          color: "#4F46E5",
+        },
+      ],
+      xAxisLabel: "City",
+      yAxisLabel: "Average commute time (minutes)",
+      unit: "minutes",
+    },
+    modelAnswers: {
+      band7:
+        "The bar chart shows the average amount of time workers spend commuting each day in six major cities around the world.\n\nOverall, commute times varied considerably across the six cities. Mumbai recorded the longest average commute at 84 minutes per day, while Sydney had the shortest at 55 minutes. All cities had average commute times of at least 55 minutes.\n\nMumbai's commute was notably the highest, at 84 minutes — approximately half an hour more than Sydney's 55 minutes. London and New York had very similar commute times, at 74 and 72 minutes respectively, making them the second and third longest commuting cities. Tokyo was close behind at 68 minutes.\n\nToronto and Sydney recorded the two lowest figures, at 63 and 55 minutes respectively. The difference between the two shortest-commute cities (Sydney and Toronto) was only 8 minutes, while the gap between the highest (Mumbai) and lowest (Sydney) was considerably larger at 29 minutes.\n\nIn summary, Mumbai stands out as having by far the longest average commute, while the remaining cities cluster more closely together, with all five between 55 and 74 minutes.",
+      band8:
+        "The bar chart presents average daily commute durations for workers in six global cities, allowing for a comparison of urban mobility patterns across diverse metropolitan environments.\n\nThe most striking observation is the pronounced gap between Mumbai, where workers spend an average of 84 minutes commuting daily, and the remaining five cities, all of which fall within a narrower band of 55 to 74 minutes. Mumbai's figure exceeds the next highest — London at 74 minutes — by a full ten minutes, and surpasses Sydney's 55-minute average by nearly half an hour.\n\nAmong the five remaining cities, London and New York are almost identical at 74 and 72 minutes respectively, suggesting broadly comparable urban transport challenges in these two dense, historically developed metropolises. Tokyo, despite its reputation as a city of exceptionally long commutes, records 68 minutes — below the two Western cities and closer to the mid-range.\n\nToronto and Sydney post the two lowest figures at 63 and 55 minutes respectively, a difference of just 8 minutes. Sydney's position as the shortest-commute city may reflect its comparatively lower population density or more extensive road infrastructure relative to its working population.\n\nIn conclusion, while all six cities impose commutes of at least 55 minutes on their workers, Mumbai stands as a clear outlier, and the Asian cities do not uniformly top the rankings despite expectations, with Tokyo falling in the mid-range.",
+    },
+    annotations: [
+      {
+        highlight: "all of which fall within a narrower band of 55 to 74 minutes",
+        technique: "Range grouping",
+        explanation: "Describing five cities as falling within 'a narrower band' highlights the clustering pattern efficiently and contrasts it with Mumbai's outlier status.",
+      },
+      {
+        highlight: "Tokyo, despite its reputation as a city of exceptionally long commutes, records 68 minutes",
+        technique: "Expectation vs reality contrast",
+        explanation: "Noting the contrast between reputation and actual data adds an analytical layer that distinguishes candidate knowledge from mere data reporting.",
+      },
+      {
+        highlight: "Mumbai stands as a clear outlier, and the Asian cities do not uniformly top the rankings despite expectations",
+        technique: "Qualifying generalisation",
+        explanation: "Challenging a potential assumption ('Asian cities have the longest commutes') shows critical thinking and avoids oversimplified generalisations.",
+      },
+    ],
+    evaluationChecklist: [
+      "Did I identify the highest and lowest values?",
+      "Did I group similar values together rather than listing all six cities separately?",
+      "Did I note the clustering of five cities in a narrower range vs Mumbai as outlier?",
+      "Did I calculate the gap between highest and lowest figures?",
+      "Did I use appropriate vocabulary (commute duration, average, exceed, surpass)?",
+      "Did I write an overview before the detailed description?",
+      "Did I avoid writing a simple list without comparison?",
+      "Did I write at least 150 words?",
+    ],
+    keyVocabulary: [
+      "commute duration",
+      "outlier",
+      "metropolitan",
+      "urban mobility",
+      "population density",
+      "pronounced gap",
+      "clustering",
+      "mid-range",
+      "road infrastructure",
+      "exceeds",
+    ],
+    tips: [
+      "For single-dataset bar charts, focus on comparing values — highest, lowest, groups of similar values.",
+      "Calculate the range (highest minus lowest) and mention it — it adds analytical depth.",
+      "Identify any outliers and call attention to them explicitly.",
+      "Group cities with similar values: 'London and New York, at 74 and 72 minutes respectively, are virtually identical'.",
+      "Avoid ending every sentence with a number — use prose to interpret: 'Mumbai's figure is notably higher than any other city'.",
+    ],
+    sampleStructure: [
+      { paragraph: "Introduction", purpose: "Paraphrase — bar chart, six cities, commute times", sentenceCount: "1-2" },
+      { paragraph: "Overview", purpose: "Mumbai highest; Sydney lowest; five cities within a narrow band", sentenceCount: "2" },
+      { paragraph: "Body 1 — Mumbai and upper tier", purpose: "Mumbai as outlier; London and New York close together", sentenceCount: "3-4" },
+      { paragraph: "Body 2 — Middle and lower tier", purpose: "Tokyo mid-range; Toronto and Sydney lowest; overall range", sentenceCount: "3-4" },
+    ],
+    timeLimit: 20,
+    wordLimit: { min: 150, max: 200 },
+  },
+  {
+    id: "t1-08",
+    type: "task1-academic",
+    category: "table",
+    difficulty: "expert",
+    prompt:
+      "The table below shows healthcare spending as a percentage of GDP and average life expectancy in six countries. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    chartData: {
+      type: "table",
+      title: "Healthcare Spending (% of GDP) and Life Expectancy in Six Countries",
+      labels: ["Country", "Healthcare spending (% GDP)", "Life expectancy (years)"],
+      datasets: [
+        { label: "USA",     data: [16.8, 79], color: "#4F46E5" },
+        { label: "Germany", data: [11.7, 81], color: "#F59E0B" },
+        { label: "Japan",   data: [10.9, 84], color: "#10B981" },
+        { label: "UK",      data: [10.2, 81], color: "#EF4444" },
+        { label: "Brazil",  data: [9.5,  76], color: "#8B5CF6" },
+        { label: "India",   data: [3.5,  70], color: "#6366F1" },
+      ],
+      xAxisLabel: "Country",
+      yAxisLabel: "",
+      unit: "",
+    },
+    modelAnswers: {
+      band7:
+        "The table compares healthcare spending as a proportion of GDP and life expectancy in six countries.\n\nOverall, there is a general relationship between higher healthcare spending and longer life expectancy. However, the USA is a notable exception to this pattern.\n\nThe USA spent the most on healthcare at 16.8% of GDP, significantly more than any other country. However, its life expectancy of 79 years was lower than Germany, Japan, and the UK. Japan spent 10.9% and achieved the highest life expectancy of 84 years, suggesting that other factors beyond spending levels also influence health outcomes.\n\nGermany and the UK had similar life expectancies of 81 years despite different spending levels — 11.7% and 10.2% respectively. Brazil spent 9.5% of GDP and had a life expectancy of 76 years, while India, which spent the least at just 3.5%, also had the lowest life expectancy at 70 years.\n\nIn summary, although higher healthcare spending generally correlates with longer life expectancy, the USA's data challenge this trend, indicating that efficiency and access to healthcare matter as much as the total amount spent.",
+      band8:
+        "The table juxtaposes healthcare expenditure as a share of GDP with life expectancy across six economically diverse countries, presenting data that both supports and complicates the intuitive assumption that more spending produces longer lives.\n\nThe most striking feature is the USA's anomalous position. Despite allocating by far the largest share of its economy to healthcare — 16.8% of GDP, over five percentage points above the next highest spender, Germany at 11.7% — the USA records a life expectancy of only 79 years, lower than Germany, Japan, and the UK, all of which spend considerably less. This divergence suggests that expenditure volume alone is an insufficient indicator of system performance and that factors such as access equity, preventive care investment, and lifestyle determinants play a significant mediating role.\n\nJapan presents the inverse case: with spending of 10.9% of GDP — below Germany and the USA — it achieves the highest life expectancy of the group at 84 years, pointing to systemic efficiencies and population health behaviours that deliver disproportionate returns on investment.\n\nGermany and the UK produce near-identical life expectancies of 81 years despite a 1.5 percentage point difference in spending, reinforcing the argument that marginal differences in expenditure may matter less than structural health system design.\n\nBrazil and India, the two lower-income nations, both record lower spending and lower life expectancies — 76 and 70 years respectively — suggesting that at lower income levels, resource constraints remain a binding limitation on health outcomes.\n\nIn conclusion, the data reveal a nuanced relationship: while spending and longevity broadly correlate, the USA and Japan represent outliers that highlight the critical role of healthcare system efficiency over raw expenditure.",
+    },
+    annotations: [
+      {
+        highlight: "presenting data that both supports and complicates the intuitive assumption",
+        technique: "Analytical framing of complexity",
+        explanation: "Noting that data both 'supports and complicates' the expected pattern immediately signals that the candidate will go beyond simple description to analytical comparison.",
+      },
+      {
+        highlight: "expenditure volume alone is an insufficient indicator of system performance",
+        technique: "Evaluative conclusion from data",
+        explanation: "Drawing a policy-level conclusion ('insufficient indicator') from the USA's anomaly demonstrates the high-order thinking that separates expert Task 1 writing from description.",
+      },
+      {
+        highlight: "pointing to systemic efficiencies and population health behaviours that deliver disproportionate returns on investment",
+        technique: "Interpretive inference with economic vocabulary",
+        explanation: "'Disproportionate returns on investment' borrows from economics to interpret Japan's efficiency — appropriate hedged inference that enriches without overstepping Task 1 scope.",
+      },
+      {
+        highlight: "marginal differences in expenditure may matter less than structural health system design",
+        technique: "Comparative qualification",
+        explanation: "Comparing the relative importance of two variables ('marginal expenditure' vs 'system design') shows the candidate is reasoning about the data, not merely reporting it.",
+      },
+    ],
+    evaluationChecklist: [
+      "Did I identify the key relationship (general positive correlation between spending and life expectancy)?",
+      "Did I highlight the USA as an anomaly and comment on what it suggests?",
+      "Did I note Japan's exceptional efficiency?",
+      "Did I compare countries at similar spending levels (e.g., Germany vs UK)?",
+      "Did I avoid claiming the table proves causal relationships?",
+      "Did I use appropriate hedging for interpretations ('suggests', 'may reflect')?",
+      "Did I write an overview as the second paragraph?",
+      "Did I write at least 150 words?",
+    ],
+    keyVocabulary: [
+      "healthcare expenditure",
+      "GDP share",
+      "life expectancy",
+      "positive correlation",
+      "anomalous position",
+      "system efficiency",
+      "preventive care",
+      "health outcomes",
+      "access equity",
+      "disproportionate returns",
+      "binding constraint",
+    ],
+    tips: [
+      "For two-variable tables, always comment on the relationship between the two variables — correlation, exceptions, patterns.",
+      "Identify outliers (USA is high spend, low longevity) and comment on what they imply.",
+      "Use hedged language for interpretations: 'suggests', 'may reflect', 'points to' — not 'proves'.",
+      "Group countries by region or income level for organised comparison (higher-income vs lower-income countries).",
+      "Expert-level responses note WHERE the expected pattern breaks down, not just describe the data.",
+    ],
+    sampleStructure: [
+      { paragraph: "Introduction", purpose: "Paraphrase — table, two variables, six countries", sentenceCount: "1-2" },
+      { paragraph: "Overview", purpose: "General positive correlation; USA and Japan as notable exceptions", sentenceCount: "2" },
+      { paragraph: "Body 1 — High spenders", purpose: "USA anomaly; Germany and Japan comparison; efficiency interpretation", sentenceCount: "4-5" },
+      { paragraph: "Body 2 — Mid and lower spenders", purpose: "UK vs Germany; Brazil and India pattern; resource constraints", sentenceCount: "3-4" },
+    ],
+    timeLimit: 20,
+    wordLimit: { min: 150, max: 200 },
+  },
+];

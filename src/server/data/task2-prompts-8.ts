@@ -1,0 +1,162 @@
+export const task2Part8 = [
+  {
+    id: "t2-19",
+    type: "task2",
+    category: "opinion",
+    difficulty: "advanced",
+    prompt:
+      "Some people believe that it is best to accept a bad situation, such as an unsatisfactory job or shortage of money. Others argue that it is better to try and improve such situations. Discuss both views and give your own opinion.",
+    modelAnswers: {
+      band7:
+        "People respond to challenging life circumstances in fundamentally different ways. Some argue that acceptance is the wisest response to difficulties like financial hardship or job dissatisfaction, while others believe that actively working to improve one's situation is always preferable. In my opinion, the better approach depends on context, though I lean towards believing that efforts to improve are generally more beneficial.\n\nThose who favour acceptance often cite psychological wellbeing as their main argument. Constantly striving for change can generate stress, anxiety, and disappointment, particularly when circumstances are genuinely beyond one's control. Philosophical traditions such as Stoicism advocate focusing on what one can control and accepting what one cannot, and research in positive psychology has shown that gratitude and acceptance are strongly associated with happiness and mental resilience. In contexts where change is truly impossible, acceptance may prevent a person from wasting energy on a futile struggle.\n\nHowever, passive acceptance also carries risks. An individual who remains indefinitely in an unsatisfying job or accepts chronic financial insecurity without attempting improvement may miss opportunities for genuine progress. History offers countless examples of individuals who overcame difficult circumstances through perseverance and determination. Moreover, the conditions that create bad situations — low wages, poor working conditions — are often ones that can, with effort, be changed.\n\nIn my view, the most sensible approach is a considered one: first assess whether change is realistically achievable, then act decisively if it is. Blind optimism and paralysing acceptance are both unhelpful; what is needed is a realistic evaluation of one's situation and a strategic plan for improvement where improvement is possible.\n\nIn conclusion, while acceptance has its place, I believe that a proactive approach to improving difficult situations generally leads to better long-term outcomes for individuals and society alike.",
+      band8:
+        "The question of whether to accept or actively resist unfavourable circumstances is one of the oldest in practical philosophy, and the answer is rarely as binary as the prompt implies. My own position is that acceptance and striving are not mutually exclusive orientations but rather complementary responses whose appropriate balance depends on an honest appraisal of what is structurally changeable and what is not.\n\nThe case for acceptance draws on both philosophical tradition and empirical psychology. Stoic thought, from Marcus Aurelius to the modern therapeutic framework of Cognitive Behavioural Therapy, is premised on the observation that suffering often arises not from circumstances themselves but from the gap between reality and our expectations of it. Narrowing that gap through acceptance, rather than widening it through unrealistic aspiration, is demonstrably associated with lower rates of anxiety and depression. There are also situations in which the costs of struggle — financial, relational, physiological — credibly outweigh the expected gains, particularly where structural barriers to improvement are severe and persistent.\n\nNevertheless, the acceptance position slides easily into a passive fatalism that disserves both the individual and collective interests. Prolonged resignation to an unsatisfying job stifles professional development, perpetuates underemployment, and — at the aggregate level — represents a significant misallocation of human potential. The same argument applies to financial precarity: the empirical evidence from social mobility research suggests that deliberate investment in education and skill development can, in a majority of cases, produce meaningful material improvement. To advise acceptance where agency exists is, in effect, to advise individuals against their own long-term interests.\n\nThe most defensible position, therefore, is a discriminating one: acceptance is rational where circumstances are genuinely beyond individual agency, but where they are not, strategic effort — guided by realistic goal-setting rather than wishful thinking — is almost invariably the superior response.\n\nIn conclusion, the wisdom lies not in choosing acceptance or striving universally, but in developing the analytical capacity to distinguish situations that call for each.",
+    },
+    annotations: [
+      {
+        highlight: "acceptance and striving are not mutually exclusive orientations but rather complementary responses whose appropriate balance depends on an honest appraisal",
+        technique: "Reframing the binary as a spectrum",
+        explanation: "Rather than choosing one side, framing acceptance and striving as 'complementary' — not opposites — is a sophisticated analytical move that distinguishes Band 8 responses.",
+      },
+      {
+        highlight: "suffering often arises not from circumstances themselves but from the gap between reality and our expectations of it",
+        technique: "Philosophical restatement with precise mechanism",
+        explanation: "Articulating the Stoic insight as the 'gap between reality and expectations' is precise and insightful — this is the kind of formulation that examiners recognise as genuinely sophisticated.",
+      },
+      {
+        highlight: "the acceptance position slides easily into a passive fatalism that disserves both the individual and collective interests",
+        technique: "Precise evaluative vocabulary",
+        explanation: "'Slides easily into' suggests a slippery-slope risk without overstating it; 'disserves' (meaning works against) is a precise, uncommon but correct vocabulary choice.",
+      },
+      {
+        highlight: "the wisdom lies not in choosing acceptance or striving universally, but in developing the analytical capacity to distinguish situations that call for each",
+        technique: "Meta-level conclusion",
+        explanation: "Rather than concluding 'striving is better', the conclusion elevates to a meta-level — the wisdom is in knowing WHEN to do each — demonstrating the kind of original thinking characteristic of Band 8+.",
+      },
+    ],
+    evaluationChecklist: [
+      "Did I discuss BOTH views — acceptance AND striving — with equal seriousness?",
+      "Did I state and explain my own opinion clearly?",
+      "Did I reference a philosophical tradition or psychological research to support the acceptance view?",
+      "Did I use evidence or examples to support the striving view?",
+      "Did I avoid dismissing one view without engaging with its best arguments?",
+      "Did I use appropriately sophisticated vocabulary (fatalism, agency, empirical, discriminating)?",
+      "Did I avoid making the essay purely personal — did I consider societal/collective dimensions?",
+      "Did I write at least 250 words?",
+      "Is my conclusion a synthesis, not a repetition?",
+      "Did I use a range of complex sentence structures?",
+    ],
+    keyVocabulary: [
+      "fatalism",
+      "passive acceptance",
+      "Stoicism",
+      "cognitive behavioural therapy",
+      "resilience",
+      "structural barriers",
+      "social mobility",
+      "underemployment",
+      "human agency",
+      "professional development",
+      "empirical evidence",
+      "discriminating response",
+    ],
+    tips: [
+      "Reference Stoicism and CBT for the acceptance side — this elevates the argument from common sense to intellectual depth.",
+      "The 'striving' side is stronger when connected to social mobility research and aggregate economic arguments.",
+      "The most original essays find a middle position: acceptance and striving are context-dependent, not universally applicable.",
+      "Avoid the trap of simply agreeing that 'trying is always best' — engage seriously with when acceptance IS the rational choice.",
+      "The concept of 'individual agency' is key: acceptance is rational when agency is absent; striving is rational when agency exists.",
+    ],
+    sampleStructure: [
+      { paragraph: "Introduction", purpose: "Introduce the debate; state nuanced position (context-dependent)", sentenceCount: "2-3" },
+      { paragraph: "Body 1 — Case for acceptance", purpose: "Stoicism, CBT, psychological wellbeing, structural barriers", sentenceCount: "4-5" },
+      { paragraph: "Body 2 — Case for striving (stronger position)", purpose: "Social mobility evidence, agency, professional/financial improvement", sentenceCount: "4-5" },
+      { paragraph: "Conclusion", purpose: "Wisdom is in discrimination — context determines which is right", sentenceCount: "2" },
+    ],
+    timeLimit: 40,
+    wordLimit: { min: 250, max: 300 },
+  },
+  {
+    id: "t2-20",
+    type: "task2",
+    category: "problem-solution",
+    difficulty: "expert",
+    prompt:
+      "In many countries, the gap between the rich and the poor is increasing. What problems does this cause and what solutions can you suggest?",
+    modelAnswers: {
+      band7:
+        "Rising economic inequality is one of the most pressing issues facing countries around the world. The growing divide between wealthy and low-income populations causes serious problems and demands thoughtful policy responses.\n\nThe most significant problems arising from wealth inequality are social, economic, and political in nature. Socially, large income gaps limit social mobility, meaning that a person's life chances are increasingly determined by the wealth of the family into which they are born rather than their individual abilities or efforts. This undermines the meritocratic ideal that many societies aspire to. Economically, extreme inequality can reduce overall consumer spending, as wealth concentrated at the top is less likely to be spent and more likely to be saved or invested abroad. Politically, wealthy elites can exert disproportionate influence on democratic processes, leading to policies that further favour the already privileged.\n\nMoreover, inequality is associated with higher rates of crime, poorer public health outcomes, and reduced levels of trust and social cohesion within communities.\n\nTo address these problems, governments can adopt a range of policies. Progressive taxation — where higher earners pay proportionally more — can redistribute wealth and fund public services that benefit all citizens. Investing in quality education for children from disadvantaged backgrounds is essential for improving social mobility. Raising minimum wage levels and strengthening labour protections can improve the financial security of low-income workers.\n\nAt the international level, closing tax havens and improving corporate tax transparency would prevent wealthy individuals and corporations from avoiding their fiscal obligations.\n\nIn conclusion, growing inequality undermines social cohesion, economic dynamism, and democratic integrity. Addressing it requires coordinated action by governments through taxation, education, labour market reform, and international cooperation.",
+      band8:
+        "The widening chasm between the affluent and the impoverished is not merely an economic phenomenon but a civilisational challenge with ramifications across social, political, and democratic life. Understanding its consequences requires moving beyond income statistics to examine how concentrated wealth reshapes opportunity structures, institutional integrity, and communal solidarity.\n\nThe problems generated by extreme inequality are deeply interconnected. Most fundamentally, it corrodes social mobility: where wealth determines access to quality education, professional networks, and healthcare, the relationship between individual merit and life outcomes weakens, producing an entrenched plutocracy in which economic position becomes self-perpetuating across generations. Research by economists such as Thomas Piketty has documented this dynamic rigorously, demonstrating that returns on capital consistently outpace income growth from labour, systematically advantaging the asset-owning class. The macro-economic consequences are equally serious: highly unequal societies exhibit lower aggregate demand, as the disproportionate savings propensity of high-income households suppresses the consumer spending that drives growth in domestic markets. The political effects may be the most corrosive of all — concentrated wealth translates readily into political influence, distorting regulatory environments and democratic processes in ways that compound rather than correct inequality.\n\nEffective solutions must operate at multiple levels simultaneously. Fiscally, progressive income and wealth taxation — including taxes on capital gains, inheritance, and financial transactions — can arrest the compounding advantage of existing wealth while generating revenue for redistributive public spending. However, taxation alone is insufficient without structural reforms to opportunity: universal access to early childhood education has been shown in Nordic countries to produce the strongest long-term social mobility gains of any public investment. Labour market reforms — sectoral minimum wages, collective bargaining rights, portable benefits for gig workers — address the wage compression that has disproportionately depressed earnings at the bottom of the distribution. Finally, at the international level, coordinated action on tax havens and minimum corporate tax standards — as recently pursued through the OECD's Base Erosion and Profit Shifting framework — is indispensable, since domestic redistribution is fatally undermined when capital can freely seek lower-tax jurisdictions.\n\nIn conclusion, inequality is a systemic product of market structures and policy choices; reversing it demands equally systemic responses that combine fiscal redistribution, structural investment in opportunity, and international cooperation.",
+    },
+    annotations: [
+      {
+        highlight: "Research by economists such as Thomas Piketty has documented this dynamic rigorously, demonstrating that returns on capital consistently outpace income growth from labour",
+        technique: "Named economist with specific thesis",
+        explanation: "Citing Piketty's core finding precisely ('returns on capital outpace labour income') rather than vaguely saying 'economists have shown' demonstrates expert engagement with economic literature.",
+      },
+      {
+        highlight: "the disproportionate savings propensity of high-income households suppresses the consumer spending that drives growth in domestic markets",
+        technique: "Keynesian economic mechanism",
+        explanation: "Explaining the macro-economic link between inequality and reduced growth through the 'savings propensity' mechanism shows sophisticated economic reasoning beyond the typical 'rich get richer' narrative.",
+      },
+      {
+        highlight: "coordinated action on tax havens and minimum corporate tax standards — as recently pursued through the OECD's Base Erosion and Profit Shifting framework",
+        technique: "Named real-world policy initiative",
+        explanation: "Referencing the actual OECD BEPS framework by name converts the general 'close tax havens' recommendation into a credible, specific, real-world proposal.",
+      },
+      {
+        highlight: "inequality is a systemic product of market structures and policy choices; reversing it demands equally systemic responses",
+        technique: "Structural framing with logical symmetry",
+        explanation: "The closing parallelism — 'systemic product → systemic responses' — frames the conclusion with logical precision and rhetorical elegance, reinforcing the essay's analytical argument.",
+      },
+      {
+        highlight: "an entrenched plutocracy in which economic position becomes self-perpetuating across generations",
+        technique: "Precise political economy vocabulary",
+        explanation: "'Plutocracy' (rule by the wealthy) and 'self-perpetuating' precisely describe how inequality compounds — this vocabulary elevates the analysis to expert level.",
+      },
+    ],
+    evaluationChecklist: [
+      "Did I address BOTH problems AND solutions with roughly equal coverage?",
+      "Did I identify problems in multiple domains: social, economic, and political?",
+      "Did I explain the social mobility mechanism, not just say 'poor people have fewer chances'?",
+      "Did I propose solutions at multiple levels: tax policy, education, labour market, international?",
+      "Did I name specific economists, policies, or frameworks (Piketty, OECD BEPS)?",
+      "Did I use precise economic vocabulary (progressive taxation, aggregate demand, capital gains)?",
+      "Did I avoid simplistic 'tax the rich' solutions without explaining the mechanism?",
+      "Did I write at least 250 words?",
+      "Did I use a variety of complex sentence structures?",
+      "Is my conclusion a synthesis that does not introduce new arguments?",
+    ],
+    keyVocabulary: [
+      "economic inequality",
+      "social mobility",
+      "plutocracy",
+      "progressive taxation",
+      "aggregate demand",
+      "savings propensity",
+      "capital gains tax",
+      "tax haven",
+      "OECD BEPS",
+      "redistributive policy",
+      "labour market reform",
+      "collective bargaining",
+    ],
+    tips: [
+      "Naming Piketty and his core thesis (capital returns > labour income) immediately signals expert-level economic knowledge.",
+      "The macro-economic problem (reduced aggregate demand) is a sophisticated angle most candidates completely miss.",
+      "Solutions must mirror causes: structural problem → structural solution; political capture → democratic reform.",
+      "The OECD BEPS framework is the real-world example of international tax cooperation — using it makes your proposal credible.",
+      "Expert essays distinguish between 'taxing income' and 'taxing wealth/capital' — these target different aspects of inequality.",
+    ],
+    sampleStructure: [
+      { paragraph: "Introduction", purpose: "Frame inequality as multi-dimensional challenge; signal problems and solutions", sentenceCount: "2-3" },
+      { paragraph: "Body 1 — Social and political problems", purpose: "Social mobility erosion, plutocracy, political distortion", sentenceCount: "4-5" },
+      { paragraph: "Body 2 — Economic problems", purpose: "Aggregate demand reduction, capital vs labour dynamics (Piketty)", sentenceCount: "3-4" },
+      { paragraph: "Body 3 — Solutions", purpose: "Progressive tax, early education, labour reform, international cooperation (OECD)", sentenceCount: "4-5" },
+      { paragraph: "Conclusion", purpose: "Systemic problem requires systemic, multi-level response", sentenceCount: "2" },
+    ],
+    timeLimit: 40,
+    wordLimit: { min: 250, max: 300 },
+  },
+];

@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(npx *)",
+      "Bash(tsx *)",
+      "Bash(git status*)",
+      "Bash(git log*)",
+      "Bash(git diff*)",
+      "Bash(git branch*)",
+      "Bash(mongosh --eval*)",
+      "Bash(ls *)",
+      "Bash(mkdir *)",
+      "Bash(cp .env.example .env)",
+      "Bash(wc -l *)"
+    ]
+  }
+}

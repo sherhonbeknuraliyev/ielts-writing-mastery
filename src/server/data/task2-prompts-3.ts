@@ -1,0 +1,155 @@
+export const task2Part3 = [
+  {
+    id: "t2-07",
+    type: "task2",
+    category: "problem-solution",
+    difficulty: "advanced",
+    prompt:
+      "In many cities, the increasing number of private vehicles is causing traffic congestion and air pollution. What are the causes of this problem and what measures could be taken to solve it?",
+    modelAnswers: {
+      band7:
+        "Traffic congestion and air pollution caused by private vehicles are major challenges facing modern cities. This essay will examine the main causes of this problem and suggest some practical solutions.\n\nThe primary cause is rapid urbanisation. As more people move to cities for work and education, demand for personal transport increases. In many cities, inadequate public transport infrastructure forces residents to rely on cars. Furthermore, rising living standards have made car ownership more affordable, leading to a dramatic increase in vehicles on the road. In developing countries particularly, the expansion of credit and falling car prices have accelerated this trend.\n\nAdditionally, urban planning that prioritises roads and car parks over pedestrian and cycling infrastructure effectively discourages alternative transport. Low fuel prices in some countries also reduce the incentive to reduce driving.\n\nTo address these problems, governments should significantly invest in public transport. Expanding metro and bus networks, and making them affordable and reliable, would encourage people to leave their cars at home. Some cities, such as Singapore and London, have successfully implemented congestion charges — fees for driving in city centres — which reduce traffic while generating revenue for transport improvements.\n\nAnother effective measure is the promotion of electric vehicles through subsidies and the construction of charging infrastructure. While electric vehicles still contribute to congestion, they substantially reduce air pollution.\n\nIn conclusion, the rise in private vehicle use results from urbanisation, inadequate alternatives, and affordability. Effective solutions include public transport investment, congestion pricing, and the transition to electric vehicles.",
+      band8:
+        "Urban traffic congestion and the associated deterioration of air quality represent two of the most pressing quality-of-life challenges confronting metropolitan administrations worldwide. The roots of the problem are multifaceted, but so too are the available remedies.\n\nAt the heart of the issue lies a mutually reinforcing cycle of urban growth and infrastructural inadequacy. As cities absorb ever-larger populations in search of economic opportunity, the demand for personal mobility intensifies. Where public transport networks have failed to expand commensurately, private vehicle ownership becomes not a luxury but a functional necessity. Compounding this is the role of urban planning orthodoxies that have historically privileged car-centric design — arterial road expansion, suburban sprawl, and generous parking provision — at the expense of walkable, transit-oriented development.\n\neconomic factors also play a significant role. In many emerging economies, the combination of rising disposable incomes and falling vehicle prices has brought car ownership within reach of the middle classes for the first time, producing an exponential surge in registrations that ageing road networks cannot absorb.\n\nThe most effective responses operate on the demand side. Congestion charging schemes, as demonstrated in Stockholm, London, and Singapore, have produced measurable reductions in city-centre traffic and fund improvements to the alternatives. Substantial investment in rapid transit — metro systems, express bus corridors, and integrated cycling infrastructure — reduces the practical necessity of car ownership. On the supply side, transitioning municipal and commercial fleets to zero-emission vehicles, combined with tightened emissions standards for private cars, would significantly improve urban air quality.\n\nIn conclusion, resolving urban vehicle proliferation demands a coordinated strategy addressing both the structural incentives for car use and the quality of the alternatives.",
+    },
+    annotations: [
+      {
+        highlight: "a mutually reinforcing cycle of urban growth and infrastructural inadequacy",
+        technique: "Systems-thinking framing",
+        explanation: "Describing the problem as a 'mutually reinforcing cycle' shows analytical sophistication — causes are not listed but connected systemically.",
+      },
+      {
+        highlight: "Where public transport networks have failed to expand commensurately, private vehicle ownership becomes not a luxury but a functional necessity",
+        technique: "Adversative cleft",
+        explanation: "'Not a luxury but a functional necessity' is a powerful contrastive structure that reframes car ownership as a rational response, not a preference.",
+      },
+      {
+        highlight: "urban planning orthodoxies that have historically privileged car-centric design",
+        technique: "Historical dimension",
+        explanation: "Adding 'historically' and 'orthodoxies' shows that the candidate understands root causes go deeper than individual choice.",
+      },
+      {
+        highlight: "Congestion charging schemes, as demonstrated in Stockholm, London, and Singapore, have produced measurable reductions",
+        technique: "Evidenced claim with named examples",
+        explanation: "Three named cities ground the argument in real-world evidence — far more persuasive than 'some cities have tried this'.",
+      },
+    ],
+    evaluationChecklist: [
+      "Did I address BOTH causes AND solutions — not just one?",
+      "Did I give at least two distinct causes with explanation?",
+      "Did I give at least two distinct solutions with explanation?",
+      "Did I link causes to solutions logically (e.g., inadequate transport → invest in transit)?",
+      "Did I use specific real-world examples to support my solutions?",
+      "Did I use a variety of sentence structures throughout?",
+      "Did I avoid bullet-point style writing — are ideas developed into full sentences?",
+      "Did I avoid repeating 'traffic' or 'cars' at the start of consecutive sentences?",
+      "Is my essay at least 250 words?",
+    ],
+    keyVocabulary: [
+      "urban congestion",
+      "metropolitan administrations",
+      "infrastructural inadequacy",
+      "transit-oriented development",
+      "congestion charging",
+      "rapid transit",
+      "zero-emission vehicles",
+      "emissions standards",
+      "urban sprawl",
+      "disposable incomes",
+      "exponential surge",
+      "commensurately",
+    ],
+    tips: [
+      "Organise causes in one paragraph and solutions in another — mixing them creates confusion.",
+      "Link each solution back to a specific cause: this shows coherent, logical thinking.",
+      "Name specific cities or policies (Stockholm congestion charge) rather than saying 'some cities'.",
+      "For 'what measures' questions, evaluate why the solution works, not just name it.",
+      "Use passive constructions appropriately: 'has been demonstrated', 'are encouraged' — they create academic tone.",
+    ],
+    sampleStructure: [
+      { paragraph: "Introduction", purpose: "Introduce the problem; signal causes + solutions structure", sentenceCount: "2" },
+      { paragraph: "Body 1 — Causes", purpose: "Urbanisation, infrastructural inadequacy, urban planning, economic factors", sentenceCount: "5-6" },
+      { paragraph: "Body 2 — Solutions", purpose: "Congestion charging, public transit investment, EV transition", sentenceCount: "5-6" },
+      { paragraph: "Conclusion", purpose: "Synthesise: coordinated demand-side and supply-side strategy", sentenceCount: "2" },
+    ],
+    timeLimit: 40,
+    wordLimit: { min: 250, max: 300 },
+  },
+  {
+    id: "t2-08",
+    type: "task2",
+    category: "problem-solution",
+    difficulty: "intermediate",
+    prompt:
+      "Many young people are now leaving their homes in rural areas to live and work in cities. What are the reasons for this trend and what problems can it cause?",
+    modelAnswers: {
+      band7:
+        "Rural-to-urban migration among young people is a significant global trend that has both understandable causes and serious consequences. This essay will outline the main reasons for this movement and the problems it creates.\n\nThe most common reason young people leave rural areas is the lack of employment opportunities. Cities offer a far wider range of jobs, particularly in technology, finance, healthcare, and education. In addition, many rural areas lack access to good universities and vocational training, so young people must move to cities to further their education and career prospects. The appeal of urban social and cultural life also plays a role — city living offers entertainment, diversity, and the chance to meet people from different backgrounds.\n\nHowever, this migration causes problems on both ends. Rural communities suffer when their young populations leave. Schools close, local businesses lose customers, and essential services such as healthcare become harder to maintain. An ageing rural population becomes increasingly dependent on a shrinking working-age group.\n\nIn cities, rapid population growth creates housing shortages and drives up rental prices, making it difficult for newcomers to find affordable accommodation. Overcrowded transport, schools, and hospitals put pressure on urban infrastructure. Young migrants may also face social isolation and financial hardship as they compete for limited entry-level positions.\n\nIn conclusion, rural-to-urban migration is driven by the pursuit of better employment and education, but it strains both the rural communities left behind and the urban infrastructure that must absorb the influx. Balanced regional development policies are essential to address this imbalance.",
+      band8:
+        "The accelerating exodus of young people from rural communities to urban centres is a phenomenon reshaping demographics on every inhabited continent. While the individual motivations are readily comprehensible, the cumulative consequences — for both origin and destination communities — merit serious scrutiny.\n\nThe pull factors driving this migration are rooted primarily in structural economic disparities. Rural economies, heavily dependent on agriculture and primary industries, offer a narrowing range of career pathways as mechanisation reduces the labour intensity of farming. Cities, by contrast, concentrate the knowledge-economy employment, higher education institutions, and professional networks that young people require to build competitive careers. Beyond economics, the social and cultural magnetism of urban life — access to diverse communities, entertainment, and a degree of anonymity that rural areas rarely afford — exerts a powerful appeal on young adults navigating identity and independence.\n\nThe consequences are deeply asymmetrical. Rural communities haemorrhage their most dynamic and educated members, leaving behind an ageing population less capable of sustaining local enterprises, maintaining civic institutions, or generating the tax base needed for public services. Schools consolidate, hospitals downgrade, and community life progressively diminishes in a self-reinforcing spiral of decline.\n\nUrban areas, meanwhile, face the inverse challenge. Rapid population influxes strain housing supply, inflate rents, overwhelm transit systems, and concentrate poverty in informal settlements where newcomers lacking connections compete for low-wage work.\n\nIn conclusion, rural-to-urban migration reflects rational responses to structural inequalities, yet generates compounding problems at both poles. Sustainable solutions require deliberate investment in rural economic diversification and digital connectivity to reduce the perceived necessity of relocation.",
+    },
+    annotations: [
+      {
+        highlight: "a self-reinforcing spiral of decline",
+        technique: "Figurative systems metaphor",
+        explanation: "'Self-reinforcing spiral' captures the compounding nature of rural decline far more vividly and precisely than 'makes things worse'.",
+      },
+      {
+        highlight: "Rural communities haemorrhage their most dynamic and educated members",
+        technique: "Strong active verb",
+        explanation: "'Haemorrhage' is a medical metaphor implying an uncontrolled, damaging loss — a single word that replaces several weaker phrases.",
+      },
+      {
+        highlight: "The consequences are deeply asymmetrical",
+        technique: "Academic adjective for contrast",
+        explanation: "'Asymmetrical' precisely captures that the problems are different in type and location — a more accurate term than 'different' or 'various'.",
+      },
+      {
+        highlight: "rational responses to structural inequalities",
+        technique: "Sociological framing",
+        explanation: "Framing migration as 'rational responses' rather than personal choice shows the candidate understands systemic causes — a Band 8 analytical move.",
+      },
+    ],
+    evaluationChecklist: [
+      "Did I address BOTH reasons AND problems clearly?",
+      "Did I include problems for BOTH rural AND urban areas?",
+      "Did I explain why young people specifically (not all people) leave rural areas?",
+      "Did I use topic-specific vocabulary (migration, demographics, rural-urban divide)?",
+      "Did I develop each point with explanation, not just list causes?",
+      "Did I use varied sentence structures throughout?",
+      "Did I avoid repeating 'young people' too frequently — use pronouns and synonyms?",
+      "Is my conclusion a synthesis rather than simply listing what I said?",
+      "Is my essay at least 250 words?",
+    ],
+    keyVocabulary: [
+      "rural-to-urban migration",
+      "demographic shift",
+      "structural economic disparities",
+      "mechanisation",
+      "knowledge economy",
+      "pull factors",
+      "ageing population",
+      "civic institutions",
+      "informal settlements",
+      "economic diversification",
+      "digital connectivity",
+      "asymmetrical consequences",
+    ],
+    tips: [
+      "Remember to cover problems for BOTH rural areas (depopulation) AND cities (overcrowding) — many students only discuss one.",
+      "Use 'push' and 'pull' factor terminology to show awareness of migration theory.",
+      "Concrete verbs ('haemorrhage', 'strain', 'inflate') are more powerful than noun phrases like 'the loss of'.",
+      "The word 'young people' should not start more than two consecutive sentences — use 'they', 'these individuals', 'migrants'.",
+      "In problem-solution essays, a brief mention of potential solutions in the conclusion strengthens Task Achievement.",
+    ],
+    sampleStructure: [
+      { paragraph: "Introduction", purpose: "Introduce the global trend; signal reasons + problems structure", sentenceCount: "2" },
+      { paragraph: "Body 1 — Reasons", purpose: "Economic pull factors, education access, social appeal", sentenceCount: "4-5" },
+      { paragraph: "Body 2 — Problems for rural areas", purpose: "Population decline, ageing community, service loss, spiral of decline", sentenceCount: "4" },
+      { paragraph: "Body 3 — Problems for cities", purpose: "Housing pressure, overcrowding, poverty concentration", sentenceCount: "3-4" },
+      { paragraph: "Conclusion", purpose: "Structural inequality framing; hint at solutions", sentenceCount: "2" },
+    ],
+    timeLimit: 40,
+    wordLimit: { min: 250, max: 300 },
+  },
+];
