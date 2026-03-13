@@ -42,7 +42,7 @@ export function DashboardPage() {
   return (
     <div>
       <div className="dashboard-welcome">
-        <h1>Welcome back, {user?.username}!</h1>
+        <h1>Welcome back, {user?.firstName}!</h1>
         <p>Stay consistent — even one essay a day will lift your band score.</p>
         <div className="quick-actions">
           <button className="quick-action-btn primary" onClick={() => navigate("/writing/task2")}>
