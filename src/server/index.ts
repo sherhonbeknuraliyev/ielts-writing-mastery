@@ -26,6 +26,9 @@ app.use(
   createExpressMiddleware({
     router: appRouter,
     createContext,
+    onError: ({ path, error }) => {
+      console.error(`[tRPC] ${path}:`, error.message);
+    },
   })
 );
 
@@ -36,6 +39,21 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.join(clientDir, "index.html"));
   });
 }
+
+// Global Express error handler
+app.use((err: Error, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
+  console.error("[server] Unhandled error:", err.message, err.stack);
+  res.status(500).json({ error: "Internal server error" });
+});
+
+// Catch unhandled rejections and uncaught exceptions
+process.on("unhandledRejection", (reason) => {
+  console.error("[server] Unhandled rejection:", reason);
+});
+
+process.on("uncaughtException", (err) => {
+  console.error("[server] Uncaught exception:", err.message, err.stack);
+});
 
 async function start() {
   await connectDB();

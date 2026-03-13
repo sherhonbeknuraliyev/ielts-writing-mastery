@@ -46,7 +46,14 @@ export const authService = {
     auth_date: number;
     hash: string;
   }) {
-    this.verifyTelegramAuth(data);
+    console.log("[auth] telegramAuth called with:", { id: data.id, first_name: data.first_name, auth_date: data.auth_date });
+    try {
+      this.verifyTelegramAuth(data);
+      console.log("[auth] verification passed");
+    } catch (err) {
+      console.error("[auth] verification failed:", (err as Error).message);
+      throw err;
+    }
 
     let user = await UserModel.findOne({ telegramId: data.id });
     if (!user) {
@@ -57,15 +64,18 @@ export const authService = {
         username: data.username,
         photoUrl: data.photo_url,
       });
+      console.log("[auth] created new user:", user._id);
     } else {
       user.firstName = data.first_name;
       user.lastName = data.last_name;
       user.username = data.username;
       user.photoUrl = data.photo_url;
       await user.save();
+      console.log("[auth] updated existing user:", user._id);
     }
 
     const token = jwt.sign({ userId: user._id.toString() }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
+    console.log("[auth] success, token issued");
     return {
       token,
       user: {
