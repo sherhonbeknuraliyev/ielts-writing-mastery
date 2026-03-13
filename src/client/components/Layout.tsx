@@ -1,5 +1,7 @@
 import { useState, createContext, useContext } from "react";
+import type { ReactNode } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { FileText, BarChart3, PenLine, FolderOpen, TrendingUp, Brain, Sparkles, BookOpen, RefreshCw, ArrowUpCircle, Zap, LayoutDashboard, GraduationCap, Moon, Sun, Menu, X } from "lucide-react";
 import { useAuth } from "../utils/auth.js";
 import { useTheme } from "../hooks/useTheme.js";
 import { useFocusMode } from "../hooks/useFocusMode.js";
@@ -7,7 +9,7 @@ import { useStudySession } from "../hooks/useStudySession.js";
 
 interface NavItem {
   to: string;
-  icon: string;
+  icon: ReactNode;
   label: string;
   highlight?: boolean;
 }
@@ -16,37 +18,37 @@ const NAV_SECTIONS: { label: string; items: NavItem[] }[] = [
   {
     label: "Writing",
     items: [
-      { to: "/writing/task2", icon: "📝", label: "Task 2 Essays" },
-      { to: "/writing/task1", icon: "📊", label: "Task 1 Reports" },
-      { to: "/writing/free", icon: "✏️", label: "Free Practice" },
-      { to: "/writing/history", icon: "🗂️", label: "My Writings" },
+      { to: "/writing/task2", icon: <FileText size={18} />, label: "Task 2 Essays" },
+      { to: "/writing/task1", icon: <BarChart3 size={18} />, label: "Task 1 Reports" },
+      { to: "/writing/free", icon: <PenLine size={18} />, label: "Free Practice" },
+      { to: "/writing/history", icon: <FolderOpen size={18} />, label: "My Writings" },
     ],
   },
   {
     label: "Analytics",
     items: [
-      { to: "/analytics", icon: "📈", label: "Performance Analytics" },
+      { to: "/analytics", icon: <TrendingUp size={18} />, label: "Performance Analytics" },
     ],
   },
   {
     label: "Skills",
     items: [
-      { to: "/skills", icon: "🧠", label: "Skills Overview" },
-      { to: "/skills?module=writing-techniques", icon: "✍️", label: "Writing Techniques" },
+      { to: "/skills", icon: <Brain size={18} />, label: "Skills Overview" },
+      { to: "/skills?module=writing-techniques", icon: <Sparkles size={18} />, label: "Writing Techniques" },
     ],
   },
   {
     label: "Vocabulary",
     items: [
-      { to: "/vocabulary", icon: "📚", label: "Collocations" },
-      { to: "/vocabulary/paraphrase", icon: "🔄", label: "Paraphrasing" },
-      { to: "/vocabulary/upgrades", icon: "⬆️", label: "Band Upgrades" },
+      { to: "/vocabulary", icon: <BookOpen size={18} />, label: "Collocations" },
+      { to: "/vocabulary/paraphrase", icon: <RefreshCw size={18} />, label: "Paraphrasing" },
+      { to: "/vocabulary/upgrades", icon: <ArrowUpCircle size={18} />, label: "Band Upgrades" },
     ],
   },
   {
     label: "Practice",
     items: [
-      { to: "/daily-challenge", icon: "⚡", label: "Daily Challenge", highlight: true },
+      { to: "/daily-challenge", icon: <Zap size={18} />, label: "Daily Challenge", highlight: true },
     ],
   },
 ];
@@ -90,7 +92,7 @@ export function Layout() {
             onClick={() => setSidebarOpen(true)}
             aria-label="Open menu"
           >
-            ☰
+            <Menu size={20} />
           </button>
         )}
 
@@ -104,7 +106,7 @@ export function Layout() {
         {!focusMode && (
           <aside className={`sidebar ${sidebarOpen ? "open" : ""}`}>
             <div className="sidebar-header">
-              <span className="sidebar-logo">📝</span>
+              <span className="sidebar-logo"><GraduationCap size={24} /></span>
               <div>
                 <div className="sidebar-title">IELTS Writing</div>
                 <div className="sidebar-subtitle">Mastery Platform</div>
@@ -119,7 +121,7 @@ export function Layout() {
                   className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}
                   onClick={() => setSidebarOpen(false)}
                 >
-                  <span className="nav-item-icon">🏠</span>
+                  <span className="nav-item-icon"><LayoutDashboard size={18} /></span>
                   Dashboard
                 </NavLink>
               </div>
@@ -168,7 +170,7 @@ export function Layout() {
                   aria-label="Toggle theme"
                   title={theme === "light" ? "Switch to dark mode" : "Switch to light mode"}
                 >
-                  {theme === "light" ? "🌙" : "☀"}
+                  {theme === "light" ? <Moon size={16} /> : <Sun size={16} />}
                 </button>
                 <button className="btn btn-ghost btn-sm sidebar-logout-btn" onClick={handleLogout}>
                   Sign out
@@ -192,7 +194,7 @@ export function Layout() {
 
         {focusMode && (
           <button className="focus-exit-btn" onClick={exitFocus} title="Exit focus mode" aria-label="Exit focus mode">
-            <span aria-hidden="true">✕</span> <span className="focus-exit-hint">Press Esc to exit</span>
+            <X size={16} /> <span className="focus-exit-hint">Press Esc to exit</span>
           </button>
         )}
       </div>
