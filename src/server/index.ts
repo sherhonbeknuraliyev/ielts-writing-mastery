@@ -1,11 +1,15 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { appRouter } from "./routers/index.js";
 import { createContext } from "./trpc/context.js";
 import { connectDB } from "./db/connection.js";
 import { startBot } from "./telegram/bot.js";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -24,6 +28,14 @@ app.use(
     createContext,
   })
 );
+
+if (process.env.NODE_ENV === "production") {
+  const clientDir = path.join(__dirname, "../../client");
+  app.use(express.static(clientDir));
+  app.get("*", (_req, res) => {
+    res.sendFile(path.join(clientDir, "index.html"));
+  });
+}
 
 async function start() {
   await connectDB();

@@ -2977,3 +2977,325 @@ textarea:focus {
   cursor: pointer;
   line-height: 1.4;
 }
+
+/* ── Mobile Responsive: 768px ───────────────────────────── */
+@media (max-width: 768px) {
+
+  /* ── Writing page normal mode ── */
+  .writing-body {
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .writing-body-main {
+    min-height: 0;
+  }
+
+  .writing-guide {
+    width: 100%;
+    position: static;
+    max-height: none;
+    overflow-y: visible;
+  }
+
+  .writing-textarea {
+    min-height: 320px;
+    padding: var(--space-4) var(--space-4);
+    font-size: 1rem;
+  }
+
+  .writing-editor {
+    min-height: 280px;
+    padding: var(--space-4);
+    font-size: 1rem;
+  }
+
+  .writing-toolbar {
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .writing-prompt-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .writing-prompt-bar .prompt-meta {
+    flex-wrap: wrap;
+  }
+
+  /* ── Focus mode — stack vertically on mobile ── */
+  .focus-writing {
+    height: auto;
+    min-height: 100dvh;
+    overflow: visible;
+  }
+
+  .focus-chart-bar {
+    max-height: 140px;
+  }
+
+  .focus-columns {
+    flex-direction: column;
+    overflow: visible;
+  }
+
+  .focus-col-left,
+  .focus-col-right {
+    width: 100%;
+    flex-shrink: 1;
+    overflow-y: visible;
+    max-height: none;
+  }
+
+  .focus-col-left {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    order: 1;
+  }
+
+  .focus-col-right {
+    border-left: none;
+    border-top: 1px solid var(--border);
+    order: 3;
+  }
+
+  .focus-col-center {
+    order: 2;
+    padding: var(--space-2);
+    min-height: 50dvh;
+  }
+
+  .focus-col-center .writing-textarea {
+    min-height: 45dvh;
+    font-size: 1rem;
+    padding: var(--space-3);
+  }
+
+  .focus-plan-area textarea {
+    font-size: 0.9rem;
+  }
+
+  .focus-exit-btn {
+    top: var(--space-2);
+    right: var(--space-2);
+    padding: var(--space-1) var(--space-2);
+    font-size: var(--text-xs);
+  }
+
+  .focus-exit-hint {
+    display: none;
+  }
+
+  /* ── Login / Auth page ── */
+  .auth-page,
+  .login-page {
+    align-items: flex-start;
+    padding: var(--space-6) var(--space-4);
+  }
+
+  .auth-card,
+  .login-card {
+    padding: var(--space-6);
+    border-radius: var(--radius-lg);
+    max-width: 100%;
+  }
+
+  /* ── Cards ── */
+  .card-header {
+    padding: var(--space-4) var(--space-4);
+  }
+
+  .card-body {
+    padding: var(--space-4);
+  }
+
+  .card-footer {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  /* ── Analytics page ── */
+  .analytics-overview {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+  }
+
+  .vocab-watch-table {
+    font-size: var(--text-xs);
+  }
+
+  .vocab-watch-table th,
+  .vocab-watch-table td {
+    padding: var(--space-2);
+  }
+
+  .dashboard-insights {
+    flex-direction: column;
+  }
+
+  /* ── Daily challenge ── */
+  .score-summary {
+    padding: var(--space-6);
+  }
+
+  .score-big {
+    font-size: 2.5rem;
+  }
+
+  /* ── Exercise cards ── */
+  .exercise-card {
+    padding: var(--space-4);
+  }
+
+  /* ── Page headers ── */
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  .page-header-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  /* ── Session bar ── */
+  .session-bar {
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+  }
+
+  /* ── AI feedback panel ── */
+  .ai-feedback-panel {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* ── Whats next panel ── */
+  .whats-next-options {
+    flex-direction: column;
+  }
+
+  .whats-next-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ── Mobile Responsive: 480px (small phones) ────────────── */
+@media (max-width: 480px) {
+
+  /* Reduce main content top padding (mobile menu button is smaller) */
+  .main-content {
+    padding: var(--space-3);
+    padding-top: calc(var(--space-3) + 44px);
+  }
+
+  /* ── Typography ── */
+  .page-title,
+  h1 {
+    font-size: var(--text-xl);
+  }
+
+  /* ── Writing textarea ── */
+  .writing-textarea {
+    min-height: 260px;
+    padding: var(--space-3);
+    font-size: 0.95rem;
+    line-height: 1.75;
+  }
+
+  .writing-editor {
+    min-height: 240px;
+    padding: var(--space-3);
+    font-size: 0.95rem;
+  }
+
+  /* ── Writing toolbar — hide less important stats on very small screens ── */
+  .writing-stat {
+    display: none;
+  }
+
+  /* ── Focus mode ── */
+  .focus-col-center {
+    min-height: 55dvh;
+  }
+
+  .focus-col-center .writing-textarea {
+    min-height: 50dvh;
+    font-size: 0.95rem;
+  }
+
+  .focus-chart-bar {
+    max-height: 110px;
+  }
+
+  /* ── Analytics — single column on tiny screens ── */
+  .analytics-overview {
+    grid-template-columns: 1fr;
+  }
+
+  .analytics-stat-value {
+    font-size: 1.25rem;
+  }
+
+  /* ── Cards ── */
+  .card-header,
+  .card-body {
+    padding: var(--space-3);
+  }
+
+  /* ── Auth / Login ── */
+  .auth-card,
+  .login-card {
+    padding: var(--space-4);
+  }
+
+  .auth-title,
+  .login-title {
+    font-size: var(--text-xl);
+  }
+
+  /* ── Daily challenge score ── */
+  .score-summary {
+    padding: var(--space-4);
+  }
+
+  .score-big {
+    font-size: 2rem;
+  }
+
+  /* ── Criterion scores grid (feedback) ── */
+  .criterion-scores {
+    grid-template-columns: 1fr;
+  }
+
+  /* ── Toolbar buttons — larger touch targets ── */
+  .btn {
+    min-height: 40px;
+  }
+
+  .btn-sm {
+    min-height: 34px;
+    padding: var(--space-1) var(--space-3);
+  }
+
+  /* ── Exercise input ── */
+  .exercise-input {
+    font-size: 1rem;
+    padding: var(--space-3);
+  }
+
+  /* ── Focus exit button ── */
+  .focus-exit-btn {
+    padding: var(--space-1) var(--space-2);
+    font-size: 0.7rem;
+  }
+
+  /* ── Empty state ── */
+  .empty-state {
+    padding: var(--space-8) var(--space-3);
+  }
+}
