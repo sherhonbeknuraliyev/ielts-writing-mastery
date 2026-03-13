@@ -493,12 +493,15 @@ const COMMANDS_LIST =
 
 const ASK_SYSTEM_PROMPT =
   "You are an expert IELTS writing tutor. Help students improve their writing skills for band 7.5+. " +
-  "Be concise, practical, and encouraging. Give specific examples when possible. Keep responses under 300 words.";
+  "Be concise, practical, and encouraging. Give specific examples when possible. Keep responses under 300 words. " +
+  "IMPORTANT: Do NOT use Markdown formatting (no **, no #, no >, no ```, no *). Use plain text only. " +
+  "Use line breaks, numbered lists (1. 2. 3.), and quotes with quotation marks for formatting.";
 
 const REVIEW_SYSTEM_PROMPT =
   "You are an IELTS examiner. Review this paragraph and provide: " +
   "1) Estimated band range 2) 2-3 specific strengths 3) 2-3 areas for improvement with corrected examples. " +
-  "Be encouraging but honest. Keep it under 200 words.";
+  "Be encouraging but honest. Keep it under 200 words. " +
+  "IMPORTANT: Do NOT use Markdown formatting (no **, no #, no >, no ```, no *). Use plain text only.";
 
 // ── Bot factory ───────────────────────────────────────────────────────────
 
