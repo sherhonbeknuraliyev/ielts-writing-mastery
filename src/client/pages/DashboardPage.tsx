@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { PenLine, FileText, Trophy, BarChart3, TrendingUp } from "lucide-react";
 import {
   RadarChart,
   Radar,
@@ -110,21 +111,21 @@ export function DashboardPage() {
       {/* Today's activity */}
       <div className="grid-3 mb-6">
         <div className="stat-card">
-          <span className="stat-icon">✍️</span>
+          <span className="stat-icon"><PenLine size={20} /></span>
           <div className="stat-info">
             <div className="stat-value">{todayWritings.length}</div>
             <div className="stat-label">Essays Today</div>
           </div>
         </div>
         <div className="stat-card">
-          <span className="stat-icon">📝</span>
+          <span className="stat-icon"><FileText size={20} /></span>
           <div className="stat-info">
             <div className="stat-value">{todayWords}</div>
             <div className="stat-label">Words Today</div>
           </div>
         </div>
         <div className="stat-card">
-          <span className="stat-icon">🏆</span>
+          <span className="stat-icon"><Trophy size={20} /></span>
           <div className="stat-info">
             <div className="stat-value">{stats?.total ?? 0}</div>
             <div className="stat-label">Total Essays</div>
@@ -148,21 +149,21 @@ export function DashboardPage() {
       ) : (
         <div className="grid-3 mb-6">
           <div className="stat-card">
-            <span className="stat-icon">📝</span>
+            <span className="stat-icon"><FileText size={20} /></span>
             <div className="stat-info">
               <div className="stat-value">{stats?.total ?? 0}</div>
               <div className="stat-label">Essays Written</div>
             </div>
           </div>
           <div className="stat-card">
-            <span className="stat-icon">📊</span>
+            <span className="stat-icon"><BarChart3 size={20} /></span>
             <div className="stat-info">
               <div className="stat-value">{stats?.writingsPerType?.["task2"] ?? 0}</div>
               <div className="stat-label">Task 2 Essays</div>
             </div>
           </div>
           <div className="stat-card">
-            <span className="stat-icon">📈</span>
+            <span className="stat-icon"><TrendingUp size={20} /></span>
             <div className="stat-info">
               <div className="stat-value">—</div>
               <div className="stat-label">Avg Band (no AI yet)</div>
@@ -252,7 +253,7 @@ export function DashboardPage() {
       <div className="section-title">Recent Writings</div>
       {recentWritings.length === 0 ? (
         <div className="empty-state card" style={{ padding: "var(--space-10)" }}>
-          <div className="empty-state-icon">✍️</div>
+          <div className="empty-state-icon"><PenLine size={48} /></div>
           <h3>No writings yet</h3>
           <p>Start your first writing practice to see your progress here.</p>
           <button className="btn btn-primary" onClick={() => navigate("/writing/task2")}>

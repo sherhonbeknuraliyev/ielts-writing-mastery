@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import type { ReactNode } from "react";
+import { BarChart3, TrendingUp, Target, PenLine, BookOpen, Timer, Dumbbell, Lightbulb } from "lucide-react";
 import {
   LineChart,
   Line,
@@ -17,12 +19,12 @@ import {
 } from "recharts";
 import { trpc } from "../utils/trpc.js";
 
-const RECOMMENDATION_ICONS: Record<string, string> = {
-  criterion: "🎯",
-  error: "✏️",
-  vocabulary: "📚",
-  time: "⏱️",
-  practice: "💪",
+const RECOMMENDATION_ICONS: Record<string, ReactNode> = {
+  criterion: <Target size={18} />,
+  error: <PenLine size={18} />,
+  vocabulary: <BookOpen size={18} />,
+  time: <Timer size={18} />,
+  practice: <Dumbbell size={18} />,
 };
 
 function formatSeconds(sec: number | null): string {
@@ -59,7 +61,7 @@ function ErrorPatternCard({
         <span style={{ fontWeight: 600 }}>{category}</span>
         <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}>
           <span className="badge badge-warning">{count}</span>
-          <span style={{ fontSize: "0.8rem", color: "var(--color-gray-500)" }}>{open ? "▲" : "▼"}</span>
+          <span style={{ fontSize: "0.8rem", color: "var(--text-tertiary)" }}>{open ? "▲" : "▼"}</span>
         </div>
       </div>
       {open && examples.length > 0 && (
@@ -67,7 +69,7 @@ function ErrorPatternCard({
           {examples.map((ex, i) => (
             <div key={i} className="error-example">
               <span className="error-example-original">{ex.original}</span>
-              <span style={{ color: "var(--color-gray-500)" }}>→</span>
+              <span style={{ color: "var(--text-tertiary)" }}>→</span>
               <span className="error-example-corrected">{ex.corrected}</span>
             </div>
           ))}
@@ -82,7 +84,7 @@ export function AnalyticsPage() {
 
   if (isLoading) {
     return (
-      <div style={{ padding: "var(--space-8)", textAlign: "center", color: "var(--color-gray-500)" }}>
+      <div style={{ padding: "var(--space-8)", textAlign: "center", color: "var(--text-tertiary)" }}>
         Loading analytics…
       </div>
     );
@@ -91,7 +93,7 @@ export function AnalyticsPage() {
   if (!data) {
     return (
       <div className="empty-state card" style={{ padding: "var(--space-10)" }}>
-        <div className="empty-state-icon">📊</div>
+        <div className="empty-state-icon"><BarChart3 size={48} /></div>
         <h3>No data yet</h3>
         <p>Start writing and getting AI feedback to see your analytics.</p>
         <Link to="/writing/task2" className="btn btn-primary">
@@ -112,7 +114,7 @@ export function AnalyticsPage() {
           <p className="text-muted">{totalEvaluated} AI-evaluated essay{totalEvaluated !== 1 ? "s" : ""} completed</p>
         </div>
         <div className="empty-state card" style={{ padding: "var(--space-10)" }}>
-          <div className="empty-state-icon">📈</div>
+          <div className="empty-state-icon"><TrendingUp size={48} /></div>
           <h3>Almost there!</h3>
           <p>
             You've completed {totalEvaluated} evaluated essay{totalEvaluated !== 1 ? "s" : ""}. Complete {remaining}{" "}
@@ -142,7 +144,7 @@ export function AnalyticsPage() {
   const task2Avg = timeManagement?.task2Average ?? null;
   const task2Target = timeManagement?.task2Target ?? 2400;
   const task2WithinTarget = task2Avg != null && task2Avg <= task2Target * 1.2;
-  const timeColor = task2Avg == null ? "var(--color-gray-500)" : task2WithinTarget ? "var(--success)" : "var(--warning)";
+  const timeColor = task2Avg == null ? "var(--text-tertiary)" : task2WithinTarget ? "var(--success)" : "var(--warning)";
 
   // Self-awareness
   const selfAccuracy = selfAwareness?.accuracy ?? null;
@@ -281,7 +283,7 @@ export function AnalyticsPage() {
                 {recurringSuggestions.map((rs, i) => (
                   <tr key={i}>
                     <td style={{ fontWeight: 500 }}>{rs.original}</td>
-                    <td style={{ color: "var(--color-gray-600)" }}>{rs.suggestedUpgrades.join(", ")}</td>
+                    <td style={{ color: "var(--text-secondary)" }}>{rs.suggestedUpgrades.join(", ")}</td>
                     <td>
                       <span className="badge badge-warning">{rs.count}×</span>
                     </td>
@@ -306,7 +308,7 @@ export function AnalyticsPage() {
                   className="recommendation-icon"
                   style={{ background: "var(--accent-light)" }}
                 >
-                  {RECOMMENDATION_ICONS[rec.type] ?? "💡"}
+                  {RECOMMENDATION_ICONS[rec.type] ?? <Lightbulb size={18} />}
                 </div>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontWeight: 600, marginBottom: "var(--space-1)" }}>{rec.title}</div>

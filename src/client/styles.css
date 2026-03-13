@@ -2720,19 +2720,19 @@ textarea:focus {
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--color-gray-500);
+  color: var(--text-secondary);
   margin-bottom: var(--space-2);
 }
 
 .analytics-stat-value {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--color-gray-900);
+  color: var(--text-primary);
 }
 
 .analytics-stat-detail {
   font-size: 0.8rem;
-  color: var(--color-gray-500);
+  color: var(--text-secondary);
   margin-top: var(--space-1);
 }
 
@@ -2783,7 +2783,7 @@ textarea:focus {
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--color-gray-500);
+  color: var(--text-secondary);
   padding: var(--space-2) var(--space-3);
   border-bottom: 2px solid var(--border);
 }

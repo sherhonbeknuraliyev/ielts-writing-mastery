@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RefreshCw } from "lucide-react";
 import { trpc } from "../utils/trpc.js";
 import type { ParaphraseDrill } from "@shared/schemas/collocation.schema.js";
 
@@ -49,17 +50,17 @@ function DrillCard({ drill, onNext }: { drill: ParaphraseDrill; onNext: () => vo
           <span className="badge badge-primary">{METHOD_LABELS[drill.method] ?? drill.method}</span>
         </div>
 
-        <div style={{ background: "var(--color-gray-50)", border: "1px solid var(--color-gray-200)", borderRadius: "var(--radius)", padding: "var(--space-4)", marginBottom: "var(--space-4)" }}>
-          <div style={{ fontSize: "0.75rem", fontWeight: 600, color: "var(--color-gray-500)", marginBottom: "var(--space-2)", textTransform: "uppercase", letterSpacing: "0.05em" }}>Original</div>
-          <p style={{ lineHeight: 1.8, color: "var(--color-gray-800)", fontStyle: "italic" }}>{drill.original}</p>
+        <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: "var(--radius)", padding: "var(--space-4)", marginBottom: "var(--space-4)" }}>
+          <div style={{ fontSize: "0.75rem", fontWeight: 600, color: "var(--text-secondary)", marginBottom: "var(--space-2)", textTransform: "uppercase", letterSpacing: "0.05em" }}>Original</div>
+          <p style={{ lineHeight: 1.8, color: "var(--text-primary)", fontStyle: "italic" }}>{drill.original}</p>
         </div>
 
-        <div style={{ fontSize: "0.875rem", color: "var(--color-gray-600)", marginBottom: "var(--space-3)", padding: "var(--space-2) var(--space-3)", background: "var(--color-warning-bg)", borderRadius: "var(--radius-sm)" }}>
+        <div style={{ fontSize: "0.875rem", color: "var(--text-secondary)", marginBottom: "var(--space-3)", padding: "var(--space-2) var(--space-3)", background: "var(--warning-light)", borderRadius: "var(--radius-sm)" }}>
           {drill.explanation}
         </div>
 
         <div style={{ marginBottom: "var(--space-4)" }}>
-          <label style={{ display: "block", fontSize: "0.875rem", fontWeight: 600, marginBottom: "var(--space-2)", color: "var(--color-gray-700)" }}>
+          <label style={{ display: "block", fontSize: "0.875rem", fontWeight: 600, marginBottom: "var(--space-2)", color: "var(--text-primary)" }}>
             Your Paraphrase
           </label>
           <textarea
@@ -91,7 +92,7 @@ function DrillCard({ drill, onNext }: { drill: ParaphraseDrill; onNext: () => vo
                     <div className="answer-column-label">Model paraphrases</div>
                     <ul style={{ listStyle: "none", padding: 0 }}>
                       {drill.paraphrases.map((p, i) => (
-                        <li key={i} style={{ marginBottom: "var(--space-2)", lineHeight: 1.6, borderBottom: i < drill.paraphrases.length - 1 ? "1px solid var(--color-gray-200)" : "none", paddingBottom: "var(--space-2)" }}>
+                        <li key={i} style={{ marginBottom: "var(--space-2)", lineHeight: 1.6, borderBottom: i < drill.paraphrases.length - 1 ? "1px solid var(--border)" : "none", paddingBottom: "var(--space-2)" }}>
                           {p}
                         </li>
                       ))}
@@ -158,7 +159,7 @@ export function ParaphrasePage() {
           <h1>Paraphrasing Lab</h1>
         </div>
         <div className="empty-state">
-          <div className="empty-state-icon">🔄</div>
+          <div className="empty-state-icon"><RefreshCw size={48} /></div>
           <h3>No drills loaded yet</h3>
           <p>Run the seed script to populate paraphrase data.</p>
         </div>
@@ -174,7 +175,7 @@ export function ParaphrasePage() {
       <div className="page-header">
         <div>
           <h1>Paraphrasing Lab</h1>
-          <p style={{ color: "var(--color-gray-500)", marginTop: "var(--space-1)" }}>
+          <p style={{ color: "var(--text-secondary)", marginTop: "var(--space-1)" }}>
             Master 5 paraphrase techniques for Band 7+ lexical resource
           </p>
         </div>
@@ -188,8 +189,8 @@ export function ParaphrasePage() {
         <span className="text-sm text-muted">{completed} completed</span>
       </div>
 
-      <div style={{ height: 6, background: "var(--color-gray-200)", borderRadius: "var(--radius-full)", marginBottom: "var(--space-6)", overflow: "hidden" }}>
-        <div style={{ height: "100%", width: `${((index % allDrills.length) / allDrills.length) * 100}%`, background: "var(--color-primary)", borderRadius: "var(--radius-full)", transition: "width 0.3s" }} />
+      <div style={{ height: 6, background: "var(--border)", borderRadius: "var(--radius-xl)", marginBottom: "var(--space-6)", overflow: "hidden" }}>
+        <div style={{ height: "100%", width: `${((index % allDrills.length) / allDrills.length) * 100}%`, background: "var(--accent)", borderRadius: "var(--radius-xl)", transition: "width 0.3s" }} />
       </div>
 
       <DrillCard key={index} drill={current} onNext={() => setIndex((i) => i + 1)} />

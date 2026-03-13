@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { BarChart3, FileText, Search } from "lucide-react";
+import type { ReactNode } from "react";
 import { trpc } from "../utils/trpc.js";
 
 type TaskType = "task1-academic" | "task2";
@@ -8,10 +10,10 @@ interface Props {
   type: TaskType;
 }
 
-const TASK_INFO: Record<TaskType, { title: string; icon: string; description: string; time: number; words: string; criteria: string[] }> = {
+const TASK_INFO: Record<TaskType, { title: string; icon: ReactNode; description: string; time: number; words: string; criteria: string[] }> = {
   "task1-academic": {
     title: "IELTS Task 1 — Academic",
-    icon: "📊",
+    icon: <BarChart3 size={24} />,
     description:
       "Describe, summarise or explain information presented in a graph, chart, table or diagram. Write at least 150 words.",
     time: 20,
@@ -20,7 +22,7 @@ const TASK_INFO: Record<TaskType, { title: string; icon: string; description: st
   },
   task2: {
     title: "IELTS Task 2 — Essay",
-    icon: "📝",
+    icon: <FileText size={24} />,
     description:
       "Write an essay in response to a point of view, argument or problem. Write at least 250 words. Task 2 carries more weight than Task 1.",
     time: 40,
@@ -118,7 +120,7 @@ export function TaskPromptsPage({ type }: Props) {
 
       {filtered.length === 0 ? (
         <div className="empty-state">
-          <div className="empty-state-icon">🔍</div>
+          <div className="empty-state-icon"><Search size={48} /></div>
           <h3>No prompts found</h3>
           <p>Try a different difficulty filter.</p>
         </div>
@@ -143,7 +145,7 @@ export function TaskPromptsPage({ type }: Props) {
                     <span className="badge badge-info">📊 Chart included</span>
                   )}
                 </div>
-                <p className="text-sm" style={{ color: "var(--color-gray-700)", lineHeight: 1.6 }}>
+                <p className="text-sm" style={{ color: "var(--text-primary)", lineHeight: 1.6 }}>
                   {prompt.prompt.slice(0, 140)}{prompt.prompt.length > 140 ? "…" : ""}
                 </p>
                 <div className="flex gap-3 mt-4">

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { PenLine } from "lucide-react";
 import { trpc } from "../utils/trpc.js";
 
 function formatDate(val: string | Date | undefined): string {
@@ -82,23 +83,23 @@ function WritingCard({ item, onDelete }: { item: WritingItem; onDelete: (id: str
           <span className="writing-stat">{item.wordCount} words</span>
           <span className="writing-stat">{Math.round(item.timeSpent / 60)} min</span>
         </div>
-        <span aria-hidden="true" style={{ color: "var(--color-gray-400)", fontSize: "0.85rem" }}>{expanded ? "▲" : "▼"}</span>
+        <span aria-hidden="true" style={{ color: "var(--text-tertiary)", fontSize: "0.85rem" }}>{expanded ? "▲" : "▼"}</span>
       </div>
 
       {expanded && (
         <div className="card-body">
           {item.promptText && (
-            <div style={{ background: "var(--color-gray-50)", borderRadius: "var(--radius)", padding: "var(--space-3)", marginBottom: "var(--space-4)", fontSize: "0.875rem", color: "var(--color-gray-600)", borderLeft: "3px solid var(--color-primary)" }}>
+            <div style={{ background: "var(--bg-secondary)", borderRadius: "var(--radius)", padding: "var(--space-3)", marginBottom: "var(--space-4)", fontSize: "0.875rem", color: "var(--text-secondary)", borderLeft: "3px solid var(--accent)" }}>
               <strong>Prompt:</strong> {item.promptText}
             </div>
           )}
 
-          <div style={{ whiteSpace: "pre-wrap", lineHeight: 1.8, fontSize: "0.9rem", color: "var(--color-gray-700)", marginBottom: "var(--space-4)" }}>
+          <div style={{ whiteSpace: "pre-wrap", lineHeight: 1.8, fontSize: "0.9rem", color: "var(--text-primary)", marginBottom: "var(--space-4)" }}>
             {item.content}
           </div>
 
           {item.aiFeedback && (
-            <div style={{ borderTop: "1px solid var(--color-gray-100)", paddingTop: "var(--space-4)" }}>
+            <div style={{ borderTop: "1px solid var(--border-light)", paddingTop: "var(--space-4)" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "var(--space-3)", marginBottom: "var(--space-3)" }}>
                 <button
                   className="btn btn-ghost btn-sm"
@@ -143,7 +144,7 @@ function WritingCard({ item, onDelete }: { item: WritingItem; onDelete: (id: str
           <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "var(--space-4)" }}>
             <button
               className="btn btn-ghost btn-sm"
-              style={{ color: "var(--color-error)" }}
+              style={{ color: "var(--error)" }}
               onClick={() => {
                 if (confirm("Delete this writing?")) onDelete(id);
               }}
@@ -185,7 +186,7 @@ export function WritingHistoryPage() {
       <div className="page-header">
         <div>
           <h1>My Writings</h1>
-          <p style={{ color: "var(--color-gray-500)", marginTop: "var(--space-1)" }}>
+          <p style={{ color: "var(--text-secondary)", marginTop: "var(--space-1)" }}>
             {writings.length} essay{writings.length !== 1 ? "s" : ""} saved
           </p>
         </div>
@@ -193,7 +194,7 @@ export function WritingHistoryPage() {
 
       {writings.length === 0 ? (
         <div className="empty-state card" style={{ padding: "var(--space-10)" }}>
-          <div className="empty-state-icon">✍️</div>
+          <div className="empty-state-icon"><PenLine size={48} /></div>
           <h3>No writings yet</h3>
           <p>Start writing an essay and save it to see your history here.</p>
         </div>

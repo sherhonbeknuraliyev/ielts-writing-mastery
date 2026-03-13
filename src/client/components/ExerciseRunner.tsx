@@ -231,12 +231,12 @@ export function ExerciseRunner({ exercises, onComplete }: Props) {
   return (
     <div className="exercise-section">
       <div style={{ marginBottom: "var(--space-5)" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.8rem", color: "var(--color-gray-500)", marginBottom: "var(--space-2)" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.8rem", color: "var(--text-tertiary)", marginBottom: "var(--space-2)" }}>
           <span>Exercise {current + 1} of {exercises.length}</span>
           <span>{score} correct so far</span>
         </div>
-        <div style={{ height: 6, background: "var(--color-gray-200)", borderRadius: "var(--radius-full)", overflow: "hidden" }}>
-          <div style={{ height: "100%", width: `${(current / exercises.length) * 100}%`, background: "var(--color-primary)", borderRadius: "var(--radius-full)", transition: "width 0.3s" }} />
+        <div style={{ height: 6, background: "var(--border-light)", borderRadius: "var(--radius-xl)", overflow: "hidden" }}>
+          <div style={{ height: "100%", width: `${(current / exercises.length) * 100}%`, background: "var(--accent)", borderRadius: "var(--radius-xl)", transition: "width 0.3s" }} />
         </div>
       </div>
 

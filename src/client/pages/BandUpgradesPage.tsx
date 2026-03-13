@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ArrowUpCircle } from "lucide-react";
 import { trpc } from "../utils/trpc.js";
 import type { BandUpgrade } from "@shared/schemas/collocation.schema.js";
 
@@ -22,16 +23,16 @@ function UpgradeCard({ upgrade, practiceMode }: { upgrade: BandUpgrade; practice
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: "var(--space-3)", alignItems: "center", marginBottom: "var(--space-3)" }}>
-          <div style={{ background: "var(--color-warning-bg)", borderRadius: "var(--radius)", padding: "var(--space-3)", borderLeft: "3px solid var(--color-warning)" }}>
-            <div style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--color-warning)", marginBottom: "var(--space-1)", textTransform: "uppercase" }}>Band 6</div>
-            <p style={{ lineHeight: 1.7, color: "var(--color-gray-700)", fontStyle: "italic" }}>{upgrade.band6}</p>
+          <div style={{ background: "var(--warning-light)", borderRadius: "var(--radius)", padding: "var(--space-3)", borderLeft: "3px solid var(--warning)" }}>
+            <div style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--warning)", marginBottom: "var(--space-1)", textTransform: "uppercase" }}>Band 6</div>
+            <p style={{ lineHeight: 1.7, color: "var(--text-primary)", fontStyle: "italic" }}>{upgrade.band6}</p>
           </div>
 
-          <div style={{ fontSize: "1.25rem", color: "var(--color-gray-400)", fontWeight: 700 }}>→</div>
+          <div style={{ fontSize: "1.25rem", color: "var(--text-tertiary)", fontWeight: 700 }}>→</div>
 
           {practiceMode && !revealed ? (
-            <div style={{ background: "var(--color-gray-50)", borderRadius: "var(--radius)", padding: "var(--space-3)", borderLeft: "3px solid var(--color-gray-300)" }}>
-              <div style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--color-success)", marginBottom: "var(--space-1)", textTransform: "uppercase" }}>Band 8 — your attempt</div>
+            <div style={{ background: "var(--bg-secondary)", borderRadius: "var(--radius)", padding: "var(--space-3)", borderLeft: "3px solid var(--border)" }}>
+              <div style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--success)", marginBottom: "var(--space-1)", textTransform: "uppercase" }}>Band 8 — your attempt</div>
               <textarea
                 className="recall-sentence-area"
                 rows={3}
@@ -50,16 +51,16 @@ function UpgradeCard({ upgrade, practiceMode }: { upgrade: BandUpgrade; practice
               </button>
             </div>
           ) : (
-            <div style={{ background: "var(--color-success-bg)", borderRadius: "var(--radius)", padding: "var(--space-3)", borderLeft: "3px solid var(--color-success)" }}>
-              <div style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--color-success)", marginBottom: "var(--space-1)", textTransform: "uppercase" }}>Band 8</div>
-              <p style={{ lineHeight: 1.7, color: "var(--color-gray-700)", fontStyle: "italic" }}>{upgrade.band8}</p>
+            <div style={{ background: "var(--success-light)", borderRadius: "var(--radius)", padding: "var(--space-3)", borderLeft: "3px solid var(--success)" }}>
+              <div style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--success)", marginBottom: "var(--space-1)", textTransform: "uppercase" }}>Band 8</div>
+              <p style={{ lineHeight: 1.7, color: "var(--text-primary)", fontStyle: "italic" }}>{upgrade.band8}</p>
             </div>
           )}
         </div>
 
         {(revealed || !practiceMode) && (
-          <div style={{ background: "var(--color-primary-bg)", borderRadius: "var(--radius-sm)", padding: "var(--space-3)", fontSize: "0.875rem", color: "var(--color-gray-600)" }}>
-            <strong style={{ color: "var(--color-primary)" }}>Why it works: </strong>
+          <div style={{ background: "var(--accent-light)", borderRadius: "var(--radius-sm)", padding: "var(--space-3)", fontSize: "0.875rem", color: "var(--text-secondary)" }}>
+            <strong style={{ color: "var(--accent)" }}>Why it works: </strong>
             {upgrade.explanation}
           </div>
         )}
@@ -114,7 +115,7 @@ export function BandUpgradesPage() {
       <div className="page-header">
         <div>
           <h1>Band Upgrades</h1>
-          <p style={{ color: "var(--color-gray-500)", marginTop: "var(--space-1)" }}>
+          <p style={{ color: "var(--text-secondary)", marginTop: "var(--space-1)" }}>
             Transform Band 6 language into Band 8 expressions
           </p>
         </div>
@@ -148,14 +149,14 @@ export function BandUpgradesPage() {
 
       {filtered.length === 0 ? (
         <div className="empty-state">
-          <div className="empty-state-icon">⬆️</div>
+          <div className="empty-state-icon"><ArrowUpCircle size={48} /></div>
           <h3>No upgrades loaded yet</h3>
           <p>Run the seed script to populate band upgrade data.</p>
         </div>
       ) : (
         <div>
           {mode === "practice" && (
-            <div style={{ background: "var(--color-primary-bg)", border: "1px solid var(--color-primary-light)", borderRadius: "var(--radius)", padding: "var(--space-3) var(--space-4)", marginBottom: "var(--space-4)", fontSize: "0.875rem", color: "var(--color-primary-dark)" }}>
+            <div style={{ background: "var(--accent-light)", border: "1px solid var(--accent)", borderRadius: "var(--radius)", padding: "var(--space-3) var(--space-4)", marginBottom: "var(--space-4)", fontSize: "0.875rem", color: "var(--accent-hover)" }}>
               <strong>Practice mode:</strong> The Band 8 version is hidden. Try to write your own upgrade before revealing the model answer.
             </div>
           )}

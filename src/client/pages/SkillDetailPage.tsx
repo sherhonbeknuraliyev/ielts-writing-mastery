@@ -1,18 +1,19 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
+import { FileText, BookOpen, Brain, Zap } from "lucide-react";
 import { trpc } from "../utils/trpc.js";
 import { ExerciseRunner } from "../components/ExerciseRunner.js";
 import type { ExerciseResult } from "../components/ExerciseRunner.js";
 import type { Skill } from "@shared/schemas/skill.schema.js";
 
 const CONTENT_STYLES: Record<string, React.CSSProperties> = {
-  heading: { fontSize: "1.1rem", fontWeight: 700, color: "var(--color-gray-900)", marginTop: "var(--space-6)", marginBottom: "var(--space-2)" },
-  paragraph: { lineHeight: 1.8, color: "var(--color-gray-700)", marginBottom: "var(--space-3)" },
-  example: { background: "var(--color-primary-bg)", borderLeft: "3px solid var(--color-primary)", padding: "var(--space-3) var(--space-4)", borderRadius: "var(--radius-sm)", fontStyle: "italic", color: "var(--color-gray-700)", marginBottom: "var(--space-3)" },
-  rule: { background: "var(--color-success-bg)", borderLeft: "3px solid var(--color-success)", padding: "var(--space-3) var(--space-4)", borderRadius: "var(--radius-sm)", color: "var(--color-gray-700)", marginBottom: "var(--space-3)" },
-  tip: { background: "var(--color-warning-bg)", borderLeft: "3px solid var(--color-warning)", padding: "var(--space-3) var(--space-4)", borderRadius: "var(--radius-sm)", color: "var(--color-gray-700)", marginBottom: "var(--space-3)" },
-  warning: { background: "var(--color-error-bg)", borderLeft: "3px solid var(--color-error)", padding: "var(--space-3) var(--space-4)", borderRadius: "var(--radius-sm)", color: "var(--color-gray-700)", marginBottom: "var(--space-3)" },
-  comparison: { background: "var(--color-gray-50)", border: "1px solid var(--color-gray-200)", padding: "var(--space-3) var(--space-4)", borderRadius: "var(--radius)", color: "var(--color-gray-700)", marginBottom: "var(--space-3)", fontFamily: "var(--font-mono)", fontSize: "0.875rem" },
+  heading: { fontSize: "1.1rem", fontWeight: 700, color: "var(--text-primary)", marginTop: "var(--space-6)", marginBottom: "var(--space-2)" },
+  paragraph: { lineHeight: 1.8, color: "var(--text-primary)", marginBottom: "var(--space-3)" },
+  example: { background: "var(--accent-light)", borderLeft: "3px solid var(--accent)", padding: "var(--space-3) var(--space-4)", borderRadius: "var(--radius-sm)", fontStyle: "italic", color: "var(--text-primary)", marginBottom: "var(--space-3)" },
+  rule: { background: "var(--success-light)", borderLeft: "3px solid var(--success)", padding: "var(--space-3) var(--space-4)", borderRadius: "var(--radius-sm)", color: "var(--text-primary)", marginBottom: "var(--space-3)" },
+  tip: { background: "var(--warning-light)", borderLeft: "3px solid var(--warning)", padding: "var(--space-3) var(--space-4)", borderRadius: "var(--radius-sm)", color: "var(--text-primary)", marginBottom: "var(--space-3)" },
+  warning: { background: "var(--error-light)", borderLeft: "3px solid var(--error)", padding: "var(--space-3) var(--space-4)", borderRadius: "var(--radius-sm)", color: "var(--text-primary)", marginBottom: "var(--space-3)" },
+  comparison: { background: "var(--bg-secondary)", border: "1px solid var(--border)", padding: "var(--space-3) var(--space-4)", borderRadius: "var(--radius)", color: "var(--text-primary)", marginBottom: "var(--space-3)", fontFamily: "var(--font-mono)", fontSize: "0.875rem" },
 };
 
 function ContentBlock({ type, text }: { type: string; text: string }) {
@@ -54,19 +55,19 @@ function ScoreSummary({ results, onRetry, skill, allSkills }: { results: Exercis
         <div className="whats-next-options">
           {nextInModule && (
             <button className="whats-next-btn" onClick={() => navigate(`/skills/${nextInModule.id}`)}>
-              ➡️ Next: {nextInModule.title}
+              Next: {nextInModule.title}
             </button>
           )}
           {!nextInModule && otherModuleSkill && (
             <button className="whats-next-btn" onClick={() => navigate(`/skills/${otherModuleSkill.id}`)}>
-              🔀 Try: {otherModuleSkill.title}
+              Try: {otherModuleSkill.title}
             </button>
           )}
           <button className="whats-next-btn" onClick={() => navigate("/skills")}>
-            🧠 Back to Skills
+            <Brain size={14} /> Back to Skills
           </button>
           <button className="whats-next-btn" onClick={() => navigate("/daily-challenge")}>
-            ⚡ Try Daily Challenge
+            <Zap size={14} /> Try Daily Challenge
           </button>
         </div>
       </div>
@@ -129,8 +130,8 @@ function SkillDetail({ skill, allSkills }: { skill: Skill; allSkills: Skill[] })
                 <h2 style={{ fontSize: "1rem", fontWeight: 700, marginBottom: "var(--space-3)" }}>Key Takeaways</h2>
                 <ul style={{ listStyle: "none", padding: 0 }}>
                   {skill.keyTakeaways.map((t, i) => (
-                    <li key={i} style={{ display: "flex", gap: "var(--space-2)", marginBottom: "var(--space-3)", fontSize: "0.875rem", lineHeight: 1.6, color: "var(--color-gray-700)" }}>
-                      <span style={{ color: "var(--color-success)", fontWeight: 700, flexShrink: 0 }}>✓</span>
+                    <li key={i} style={{ display: "flex", gap: "var(--space-2)", marginBottom: "var(--space-3)", fontSize: "0.875rem", lineHeight: 1.6, color: "var(--text-primary)" }}>
+                      <span style={{ color: "var(--success)", fontWeight: 700, flexShrink: 0 }}>✓</span>
                       <span>{t}</span>
                     </li>
                   ))}
@@ -139,9 +140,9 @@ function SkillDetail({ skill, allSkills }: { skill: Skill; allSkills: Skill[] })
             </div>
 
             {skill.exercises.length > 0 && (
-              <div className="card" style={{ background: "var(--color-primary-bg)", border: "1px solid var(--color-primary-light)" }}>
+              <div className="card" style={{ background: "var(--accent-light)", border: "1px solid var(--accent)" }}>
                 <div className="card-body" style={{ textAlign: "center" }}>
-                  <div style={{ fontSize: "2rem", marginBottom: "var(--space-2)" }}>📝</div>
+                  <div style={{ marginBottom: "var(--space-2)", display: "flex", justifyContent: "center" }}><FileText size={48} /></div>
                   <h3 style={{ marginBottom: "var(--space-2)" }}>{skill.exercises.length} Practice Exercises</h3>
                   <p className="text-sm text-muted" style={{ marginBottom: "var(--space-4)" }}>
                     Apply what you've learned with targeted exercises

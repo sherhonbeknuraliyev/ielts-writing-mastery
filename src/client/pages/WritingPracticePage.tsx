@@ -1,5 +1,6 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
+import { FileText, BookOpen, Maximize2, BarChart3 } from "lucide-react";
 import { trpc } from "../utils/trpc.js";
 import { WritingToolbar } from "../components/WritingToolbar.js";
 import { GuidePanel } from "../components/GuidePanel.js";
@@ -58,13 +59,13 @@ function WhatsNextWriting({ onTryAnother, onScrollModel }: { onTryAnother: () =>
       <h3 className="whats-next-title">What's Next?</h3>
       <div className="whats-next-options">
         <button className="whats-next-btn" onClick={onTryAnother}>
-          📝 Try another prompt
+          <FileText size={14} /> Try another prompt
         </button>
         <button className="whats-next-btn" onClick={onScrollModel}>
-          📖 Review model answer
+          <BookOpen size={14} /> Review model answer
         </button>
         <Link to="/vocabulary" className="whats-next-btn">
-          📚 Practice vocabulary
+          <BookOpen size={14} /> Practice vocabulary
         </Link>
       </div>
     </div>
@@ -234,7 +235,7 @@ export function WritingPracticePage() {
         {/* Chart bar — full width, only for Task 1 */}
         {prompt?.chartData && (
           <div className="focus-chart-bar">
-            <FocusCollapsible label="📊 Chart" defaultOpen>
+            <FocusCollapsible label="Chart" defaultOpen>
               <TaskChart chartData={prompt.chartData} />
             </FocusCollapsible>
           </div>
@@ -244,11 +245,11 @@ export function WritingPracticePage() {
           {/* Left: prompt + plan */}
           <div className="focus-col-left">
             {prompt ? (
-              <FocusCollapsible label="📋 Prompt" defaultOpen>
+              <FocusCollapsible label="Prompt" defaultOpen>
                 <p style={{ fontSize: "0.82rem", lineHeight: 1.7, margin: 0 }}>{prompt.prompt}</p>
               </FocusCollapsible>
             ) : isFree ? (
-              <FocusCollapsible label="✏️ Topic" defaultOpen>
+              <FocusCollapsible label="Topic" defaultOpen>
                 <input
                   type="text"
                   className="form-input"
@@ -262,7 +263,7 @@ export function WritingPracticePage() {
 
             <div className="focus-plan-area">
               <div className="focus-collapse-header" style={{ cursor: "default" }}>
-                <span>📝 Essay Plan</span>
+                <span>Essay Plan</span>
               </div>
               <textarea
                 placeholder="Ideas, structure, key words…"
@@ -288,7 +289,7 @@ export function WritingPracticePage() {
           {/* Right: structure + checklist + tips */}
           <div className="focus-col-right">
             {prompt?.sampleStructure && prompt.sampleStructure.length > 0 && (
-              <FocusCollapsible label="📐 Structure" defaultOpen>
+              <FocusCollapsible label="Structure" defaultOpen>
                 {prompt.sampleStructure.map((s, i) => (
                   <div key={i} style={{ marginBottom: "0.4rem" }}>
                     <div style={{ fontSize: "0.78rem", fontWeight: 600 }}>{s.paragraph}</div>
@@ -316,7 +317,7 @@ export function WritingPracticePage() {
               </FocusCollapsible>
             )}
 
-            <FocusCollapsible label="💡 Tips">
+            <FocusCollapsible label="Tips">
               <ul style={{ paddingLeft: "0.9rem", margin: 0 }}>
                 {(prompt?.tips ?? DEFAULT_TIPS).map((t, i) => (
                   <li key={i} style={{ marginBottom: "0.25rem" }}>{t}</li>
@@ -349,7 +350,7 @@ export function WritingPracticePage() {
       {prompt?.chartData && (
         <div className="writing-prompt-bar" style={{ flexDirection: "column", gap: "var(--space-2)" }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
-            <span style={{ fontWeight: 600, fontSize: "0.95rem" }}>📊 Study the chart</span>
+            <span style={{ fontWeight: 600, fontSize: "0.95rem", display: "flex", alignItems: "center", gap: "0.4rem" }}><BarChart3 size={16} /> Study the chart</span>
             <div className="writing-prompt-bar prompt-meta" style={{ gap: "var(--space-3)" }}>
               <button
                 className="btn btn-ghost btn-sm"
@@ -357,7 +358,7 @@ export function WritingPracticePage() {
               >
                 {chartCollapsed ? "▼ Show" : "▲ Hide"}
               </button>
-              <button className="btn btn-ghost btn-sm" onClick={enterFocus}>⛶ Focus Mode</button>
+              <button className="btn btn-ghost btn-sm" onClick={enterFocus}><Maximize2 size={14} /> Focus Mode</button>
             </div>
           </div>
           {!chartCollapsed && <TaskChart chartData={prompt.chartData} />}
@@ -382,7 +383,7 @@ export function WritingPracticePage() {
             <button className="btn btn-ghost btn-sm" onClick={() => setPromptCollapsed((c) => !c)}>
               {promptCollapsed ? "▼ Show" : "▲ Hide"}
             </button>
-            <button className="btn btn-ghost btn-sm" onClick={enterFocus}>⛶ Focus Mode</button>
+            <button className="btn btn-ghost btn-sm" onClick={enterFocus}><Maximize2 size={14} /> Focus Mode</button>
           </div>
         </div>
       ) : prompt && !prompt.chartData ? (
@@ -404,7 +405,7 @@ export function WritingPracticePage() {
             <button className="btn btn-ghost btn-sm" onClick={() => setPromptCollapsed((c) => !c)}>
               {promptCollapsed ? "▼ Expand" : "▲ Collapse"}
             </button>
-            <button className="btn btn-ghost btn-sm" onClick={enterFocus}>⛶ Focus Mode</button>
+            <button className="btn btn-ghost btn-sm" onClick={enterFocus}><Maximize2 size={14} /> Focus Mode</button>
           </div>
         </div>
       ) : null}
@@ -431,7 +432,7 @@ export function WritingPracticePage() {
             />
           ) : (
             <div className="guide-section">
-              <div className="guide-section-header">💡 General Tips</div>
+              <div className="guide-section-header">General Tips</div>
               <div className="guide-section-body">
                 <ul className="tips-list">
                   {DEFAULT_TIPS.map((t, i) => <li key={i}>{t}</li>)}

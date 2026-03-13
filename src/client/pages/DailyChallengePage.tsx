@@ -145,14 +145,14 @@ export function DailyChallengePage() {
               </div>
             )}
             <h2 style={{ marginBottom: "var(--space-4)" }}>How it works</h2>
-            <ul style={{ textAlign: "left", maxWidth: 480, margin: "0 auto var(--space-6)", lineHeight: 2, color: "var(--color-gray-600)" }}>
+            <ul style={{ textAlign: "left", maxWidth: 480, margin: "0 auto var(--space-6)", lineHeight: 2, color: "var(--text-secondary)" }}>
               <li>10 random exercises drawn from all skill modules</li>
               <li>Mixed topics for better retention</li>
               <li>10-minute countdown timer</li>
               <li>Score tracked daily to build your streak</li>
             </ul>
             {lastChallenge && (
-              <p style={{ color: "var(--color-gray-500)", marginBottom: "var(--space-6)" }}>
+              <p style={{ color: "var(--text-tertiary)", marginBottom: "var(--space-6)" }}>
                 Last attempt: <strong>{lastChallenge.score}/{lastChallenge.total}</strong> in {formatTime(lastChallenge.timeTaken)}
               </p>
             )}
@@ -180,7 +180,7 @@ export function DailyChallengePage() {
               style={{
                 fontSize: "1.5rem",
                 fontWeight: 700,
-                color: timeLeft < 60 ? "var(--color-error)" : "var(--color-primary)",
+                color: timeLeft < 60 ? "var(--error)" : "var(--accent)",
                 fontVariantNumeric: "tabular-nums",
               }}
             >

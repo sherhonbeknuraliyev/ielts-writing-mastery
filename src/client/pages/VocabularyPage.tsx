@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { BookOpen } from "lucide-react";
 import { trpc } from "../utils/trpc.js";
 import type { CollocationSet } from "@shared/schemas/collocation.schema.js";
 
@@ -24,11 +25,11 @@ function CollocationCard({ entry }: { entry: { phrase: string; meaning: string; 
   return (
     <div className="collocation-card" style={{ borderLeft: `3px solid ${color}` }}>
       <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "var(--space-2)", marginBottom: "var(--space-2)" }}>
-        <span style={{ fontWeight: 700, color: "var(--color-gray-900)", fontSize: "0.95rem" }}>{entry.phrase}</span>
+        <span style={{ fontWeight: 700, color: "var(--text-primary)", fontSize: "0.95rem" }}>{entry.phrase}</span>
         <span className={`badge ${badgeClass}`} style={{ flexShrink: 0 }}>Band {entry.bandLevel}</span>
       </div>
-      <p style={{ fontSize: "0.8rem", color: "var(--color-gray-500)", marginBottom: "var(--space-1)" }}>{entry.meaning}</p>
-      <p style={{ fontSize: "0.875rem", color: "var(--color-gray-600)", fontStyle: "italic", lineHeight: 1.6 }}>{entry.example}</p>
+      <p style={{ fontSize: "0.8rem", color: "var(--text-secondary)", marginBottom: "var(--space-1)" }}>{entry.meaning}</p>
+      <p style={{ fontSize: "0.875rem", color: "var(--text-secondary)", fontStyle: "italic", lineHeight: 1.6 }}>{entry.example}</p>
     </div>
   );
 }
@@ -79,7 +80,7 @@ export function VocabularyPage() {
       <div className="page-header">
         <div>
           <h1>Vocabulary Builder</h1>
-          <p style={{ color: "var(--color-gray-500)", marginTop: "var(--space-1)" }}>
+          <p style={{ color: "var(--text-secondary)", marginTop: "var(--space-1)" }}>
             Essential IELTS collocations and phrases by topic
           </p>
         </div>
@@ -130,7 +131,7 @@ export function VocabularyPage() {
 
       {filtered.length === 0 ? (
         <div className="empty-state">
-          <div className="empty-state-icon">📚</div>
+          <div className="empty-state-icon"><BookOpen size={48} /></div>
           <h3>{collocations?.length === 0 ? "No vocabulary loaded yet" : "No results"}</h3>
           <p>{collocations?.length === 0 ? "Run the seed script to populate collocation data." : "Try adjusting your search or filters."}</p>
         </div>

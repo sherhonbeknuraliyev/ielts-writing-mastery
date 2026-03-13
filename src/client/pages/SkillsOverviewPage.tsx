@@ -1,28 +1,30 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useRef, useEffect, type Ref } from "react";
+import type { ReactNode } from "react";
+import { Brain, Target, PenLine, BookOpen } from "lucide-react";
 import { trpc } from "../utils/trpc.js";
 import type { Skill } from "@shared/schemas/skill.schema.js";
 
-const MODULE_INFO = {
+const MODULE_INFO: Record<string, { title: string; description: string; icon: ReactNode; color: string }> = {
   "sentence-sophistication": {
     title: "Sentence Sophistication",
     description: "Master complex structures, varied sentence forms, and academic register.",
-    icon: "🧠",
+    icon: <Brain size={24} />,
     color: "#7c6bc4",
   },
   "error-elimination": {
     title: "Error Elimination",
     description: "Identify and fix common grammatical errors to achieve Band 7+ accuracy.",
-    icon: "🎯",
+    icon: <Target size={24} />,
     color: "#dc2626",
   },
   "writing-techniques": {
     title: "Writing Techniques",
     description: "Master essay-writing mechanics — paragraphing, introductions, cohesion, and planning — to push from 6.5 to 7.5+.",
-    icon: "✍️",
+    icon: <PenLine size={24} />,
     color: "#0891b2",
   },
-} as const;
+};
 
 const CRITERION_COLOR: Record<string, string> = {
   "task-achievement": "#7c6bc4",
@@ -59,7 +61,7 @@ function SkillCard({ skill }: { skill: Skill }) {
           </div>
         </div>
         <p className="text-sm text-muted" style={{ lineHeight: 1.6 }}>{skill.description}</p>
-        <div style={{ marginTop: "var(--space-3)", fontSize: "0.75rem", color: "var(--color-gray-400)" }}>
+        <div style={{ marginTop: "var(--space-3)", fontSize: "0.75rem", color: "var(--text-tertiary)" }}>
           {skill.exercises.length} exercise{skill.exercises.length !== 1 ? "s" : ""}
         </div>
       </div>
@@ -74,7 +76,7 @@ function SkillSection({ module, skills, sectionRef, active }: { module: ModuleKe
   const filtered = skills.filter((s) => s.module === module);
 
   return (
-    <div ref={sectionRef} style={{ marginBottom: "var(--space-10)", scrollMarginTop: "var(--space-6)", outline: active ? "2px solid var(--color-primary)" : undefined, borderRadius: active ? "var(--radius-lg)" : undefined, padding: active ? "var(--space-4)" : undefined }}>
+    <div ref={sectionRef} style={{ marginBottom: "var(--space-10)", scrollMarginTop: "var(--space-6)", outline: active ? "2px solid var(--accent)" : undefined, borderRadius: active ? "var(--radius-lg)" : undefined, padding: active ? "var(--space-4)" : undefined }}>
       <div style={{ display: "flex", alignItems: "center", gap: "var(--space-3)", marginBottom: "var(--space-2)" }}>
         <span style={{ fontSize: "1.5rem" }}>{info.icon}</span>
         <div>
@@ -86,7 +88,7 @@ function SkillSection({ module, skills, sectionRef, active }: { module: ModuleKe
 
       {filtered.length === 0 ? (
         <div className="empty-state">
-          <div className="empty-state-icon">📚</div>
+          <div className="empty-state-icon"><BookOpen size={48} /></div>
           <p>No skills loaded yet. Run the seed script.</p>
         </div>
       ) : (
@@ -137,7 +139,7 @@ export function SkillsOverviewPage() {
       <div className="page-header">
         <div>
           <h1>Skills Lab</h1>
-          <p style={{ color: "var(--color-gray-500)", marginTop: "var(--space-1)" }}>
+          <p style={{ color: "var(--text-secondary)", marginTop: "var(--space-1)" }}>
             Targeted exercises to lift every band descriptor from 6.5 to 7.5+
           </p>
         </div>

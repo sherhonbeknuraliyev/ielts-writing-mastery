@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { GraduationCap } from "lucide-react";
 import { trpc } from "../utils/trpc.js";
 import { useAuth } from "../utils/auth.js";
 
@@ -49,7 +50,7 @@ export function LoginPage() {
     <div className="auth-page">
       <div className="auth-card">
         <div className="auth-header">
-          <div className="auth-logo">📝</div>
+          <div className="auth-logo"><GraduationCap size={32} /></div>
           <h1 className="auth-title">IELTS Writing Mastery</h1>
           <p className="auth-subtitle">From 6.5 to 7.5+ — practice that actually works</p>
         </div>
