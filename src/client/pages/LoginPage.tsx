@@ -1,58 +1,49 @@
-import { useState } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { trpc } from "../utils/trpc.js";
 import { useAuth } from "../utils/auth.js";
 
-type Mode = "login" | "register";
-
 export function LoginPage() {
+  const { login, isAuthenticated } = useAuth();
   const navigate = useNavigate();
-  const { login } = useAuth();
-  const [mode, setMode] = useState<Mode>("login");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const widgetRef = useRef<HTMLDivElement>(null);
 
-  const loginMutation = trpc.auth.login.useMutation({
+  const authMutation = trpc.auth.telegramAuth.useMutation({
     onSuccess: (data) => {
-      login(data.token, { _id: data.user._id, username: data.user.username });
-      navigate("/");
+      login(data.token, data.user);
+      navigate("/", { replace: true });
     },
-    onError: (err) => setError(err.message),
   });
 
-  const registerMutation = trpc.auth.register.useMutation({
-    onSuccess: (data) => {
-      login(data.token, { _id: data.user._id, username: data.user.username });
-      navigate("/");
-    },
-    onError: (err) => setError(err.message),
-  });
-
-  const isPending = loginMutation.isPending || registerMutation.isPending;
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-    if (!username.trim() || !password.trim()) {
-      setError("Please fill in all fields.");
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/", { replace: true });
       return;
     }
-    if (mode === "login") {
-      loginMutation.mutate({ username: username.trim(), password });
-    } else {
-      if (password.length < 6) {
-        setError("Password must be at least 6 characters.");
-        return;
-      }
-      registerMutation.mutate({ username: username.trim(), password });
-    }
-  };
 
-  const switchMode = () => {
-    setMode((m) => (m === "login" ? "register" : "login"));
-    setError(null);
-  };
+    (window as any).onTelegramAuth = (user: any) => {
+      authMutation.mutate(user);
+    };
+
+    if (widgetRef.current) {
+      const script = document.createElement("script");
+      script.src = "https://telegram.org/js/telegram-widget.js?22";
+      script.async = true;
+      script.setAttribute(
+        "data-telegram-login",
+        import.meta.env.VITE_TELEGRAM_BOT_USERNAME || "YourBotUsername"
+      );
+      script.setAttribute("data-size", "large");
+      script.setAttribute("data-radius", "8");
+      script.setAttribute("data-onauth", "onTelegramAuth(user)");
+      script.setAttribute("data-request-access", "write");
+      widgetRef.current.appendChild(script);
+    }
+
+    return () => {
+      delete (window as any).onTelegramAuth;
+    };
+  }, [isAuthenticated]);
 
   return (
     <div className="auth-page">
@@ -60,74 +51,23 @@ export function LoginPage() {
         <div className="auth-header">
           <div className="auth-logo">📝</div>
           <h1 className="auth-title">IELTS Writing Mastery</h1>
-          <p className="auth-subtitle">From 6.5 to 7.5+</p>
+          <p className="auth-subtitle">From 6.5 to 7.5+ — practice that actually works</p>
         </div>
 
-        <div className="auth-tabs">
-          <button
-            className={`auth-tab ${mode === "login" ? "active" : ""}`}
-            onClick={() => { setMode("login"); setError(null); }}
-            type="button"
-          >
-            Sign In
-          </button>
-          <button
-            className={`auth-tab ${mode === "register" ? "active" : ""}`}
-            onClick={() => { setMode("register"); setError(null); }}
-            type="button"
-          >
-            Create Account
-          </button>
+        <div className="auth-body" style={{ textAlign: "center", padding: "var(--space-6) var(--space-4)" }}>
+          <p style={{ marginBottom: "1.5rem", color: "var(--text-secondary)" }}>
+            Sign in with your Telegram account to start practising
+          </p>
+          <div ref={widgetRef} style={{ display: "flex", justifyContent: "center" }} />
+          {authMutation.isPending && (
+            <p style={{ marginTop: "1rem", color: "var(--text-tertiary)" }}>Signing in…</p>
+          )}
+          {authMutation.isError && (
+            <p className="auth-error" style={{ marginTop: "1rem" }}>
+              Authentication failed. Please try again.
+            </p>
+          )}
         </div>
-
-        <form onSubmit={handleSubmit} className="auth-form">
-          <div className="form-group">
-            <label className="form-label">Username</label>
-            <input
-              type="text"
-              className="form-input"
-              placeholder="Enter your username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              autoComplete="username"
-              autoFocus
-            />
-          </div>
-
-          <div className="form-group">
-            <label className="form-label">Password</label>
-            <input
-              type="password"
-              className="form-input"
-              placeholder={mode === "register" ? "At least 6 characters" : "Enter your password"}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              autoComplete={mode === "login" ? "current-password" : "new-password"}
-            />
-          </div>
-
-          {error && <div className="auth-error">{error}</div>}
-
-          <button
-            type="submit"
-            className="btn btn-primary w-full"
-            disabled={isPending}
-            style={{ marginTop: "var(--space-2)", padding: "var(--space-3)" }}
-          >
-            {isPending
-              ? "Please wait…"
-              : mode === "login"
-              ? "Sign In"
-              : "Create Account"}
-          </button>
-        </form>
-
-        <p className="auth-switch">
-          {mode === "login" ? "Don't have an account? " : "Already have an account? "}
-          <button type="button" className="auth-switch-btn" onClick={switchMode}>
-            {mode === "login" ? "Register" : "Sign In"}
-          </button>
-        </p>
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import { authService } from "../services/auth.service.js";
 
 export async function createContext({ req, res }: CreateExpressContextOptions) {
   const token = req.headers.authorization?.split(" ")[1] ?? null;
-  let user: { userId: string; username: string } | null = null;
+  let user: { userId: string } | null = null;
 
   if (token) {
     try {

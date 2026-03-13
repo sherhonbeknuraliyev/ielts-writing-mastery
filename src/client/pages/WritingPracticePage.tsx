@@ -8,6 +8,30 @@ import { AiFeedbackPanel } from "../components/AiFeedbackPanel.js";
 import { ModelAnswerViewer } from "../components/ModelAnswerViewer.js";
 import { useFocusModeContext } from "../components/Layout.js";
 import { useToast } from "../utils/toast.js";
+import type { ReactNode } from "react";
+
+function FocusCollapsible({
+  label,
+  defaultOpen = false,
+  grow = false,
+  children,
+}: {
+  label: string;
+  defaultOpen?: boolean;
+  grow?: boolean;
+  children: ReactNode;
+}) {
+  const [open, setOpen] = useState(defaultOpen);
+  return (
+    <div className={grow ? "focus-collapse focus-collapse-grow" : "focus-collapse"}>
+      <div className="focus-collapse-header" onClick={() => setOpen((o) => !o)}>
+        <span>{label}</span>
+        <span style={{ fontSize: "0.7rem" }}>{open ? "▲" : "▼"}</span>
+      </div>
+      {open && <div className="focus-collapse-body">{children}</div>}
+    </div>
+  );
+}
 
 function countWords(text: string) {
   return text.trim() === "" ? 0 : text.trim().split(/\s+/).length;
@@ -46,6 +70,14 @@ function WhatsNextWriting({ onTryAnother, onScrollModel }: { onTryAnother: () =>
     </div>
   );
 }
+
+const DEFAULT_TIPS = [
+  "Plan for 5 minutes before writing.",
+  "Clear topic sentences per paragraph.",
+  "4–5 paragraphs: intro, 2–3 body, conclusion.",
+  "Vary sentence structure and vocabulary.",
+  "Proofread in the last 5 minutes.",
+];
 
 export function WritingPracticePage() {
   const { promptId } = useParams<{ promptId: string }>();
@@ -93,7 +125,6 @@ export function WritingPracticePage() {
       setAiFeedback(feedback);
       setShowFeedback(true);
       setShowWhatsNext(true);
-
       if (savedId) {
         updateMutation.mutate({ id: savedId, content: essay, wordCount: countWords(essay), timeSpent: elapsed() });
       }
@@ -126,7 +157,6 @@ export function WritingPracticePage() {
     }
     const type = isFree ? "free-practice" : (prompt?.type ?? "task2");
     const elapsedSecs = elapsed();
-
     if (savedId) {
       updateMutation.mutate({ id: savedId, content: essay, wordCount, timeSpent: elapsedSecs });
       toast("Draft updated!");
@@ -142,7 +172,6 @@ export function WritingPracticePage() {
     }
   }, [essay, isFree, prompt, savedId, promptId, customTopic, wordCount, toast, updateMutation, createMutation]);
 
-  // Ctrl+S / Cmd+S to save
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.key === "s") {
@@ -155,14 +184,8 @@ export function WritingPracticePage() {
   }, [handleSave]);
 
   const handleFeedback = () => {
-    if (!essay.trim()) {
-      toast("Write something first.", "info");
-      return;
-    }
-    if (wordCount < 50) {
-      toast("Write at least 50 words before requesting feedback.", "info");
-      return;
-    }
+    if (!essay.trim()) { toast("Write something first.", "info"); return; }
+    if (wordCount < 50) { toast("Write at least 50 words before requesting feedback.", "info"); return; }
     const taskType = isFree ? "task2" : (prompt?.type ?? "task2");
     const promptText = isFree ? (customTopic || "Free practice — no specific prompt") : (prompt?.prompt ?? "");
     evaluateMutation.mutate({ taskType, prompt: promptText, essay });
@@ -177,6 +200,24 @@ export function WritingPracticePage() {
     setTimeout(() => modelRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
   };
 
+  const toolbar = (
+    <WritingToolbar
+      wordCount={wordCount}
+      charCount={charCount}
+      paraCount={paraCount}
+      minWords={minWords}
+      maxWords={maxWords}
+      timeLimit={timeLimit}
+      hasStarted={hasStarted}
+      hasSaved={!!savedId}
+      onSave={handleSave}
+      onFeedback={handleFeedback}
+      onViewModel={() => setShowModel(true)}
+      isSaving={createMutation.isPending || updateMutation.isPending}
+      isEvaluating={evaluateMutation.isPending}
+    />
+  );
+
   if (isLoading && promptId) {
     return (
       <div className="loading-state">
@@ -186,158 +227,102 @@ export function WritingPracticePage() {
     );
   }
 
-  // ── Focus mode: 3-panel layout filling full viewport ──────────────────
+  // ── Focus mode ──────────────────────────────────────────────────────────
   if (focusMode) {
     return (
-      <div className="focus-writing-container">
-        {/* Left panel: prompt + plan */}
-        <div className="focus-panel focus-panel-left">
-          {prompt ? (
-            <div className="focus-section">
-              <div
-                className="focus-section-header"
-                onClick={() => setPromptCollapsed((c) => !c)}
-              >
-                <span>📋 Prompt</span>
-                <span>{promptCollapsed ? "▼" : "▲"}</span>
-              </div>
-              {!promptCollapsed && (
-                <div className="focus-section-body">
-                  <p style={{ fontSize: "0.85rem", lineHeight: 1.7, margin: 0 }}>{prompt.prompt}</p>
-                  {prompt.chartData && (
-                    <div style={{ marginTop: "var(--space-2)" }}>
-                      <TaskChart chartData={prompt.chartData} />
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-          ) : isFree ? (
-            <div className="focus-section">
-              <div className="focus-section-header">
-                <span>✏️ Topic</span>
-              </div>
-              <div className="focus-section-body">
+      <div className="focus-writing">
+        {/* Chart bar — full width, only for Task 1 */}
+        {prompt?.chartData && (
+          <div className="focus-chart-bar">
+            <FocusCollapsible label="📊 Chart" defaultOpen>
+              <TaskChart chartData={prompt.chartData} />
+            </FocusCollapsible>
+          </div>
+        )}
+
+        <div className="focus-columns">
+          {/* Left: prompt + plan */}
+          <div className="focus-col-left">
+            {prompt ? (
+              <FocusCollapsible label="📋 Prompt" defaultOpen>
+                <p style={{ fontSize: "0.82rem", lineHeight: 1.7, margin: 0 }}>{prompt.prompt}</p>
+              </FocusCollapsible>
+            ) : isFree ? (
+              <FocusCollapsible label="✏️ Topic" defaultOpen>
                 <input
                   type="text"
                   className="form-input"
                   placeholder="Your essay topic…"
                   value={customTopic}
                   onChange={(e) => setCustomTopic(e.target.value)}
-                  style={{ fontSize: "0.85rem" }}
+                  style={{ fontSize: "0.82rem" }}
                 />
-              </div>
-            </div>
-          ) : null}
+              </FocusCollapsible>
+            ) : null}
 
-          {/* Essay Plan notepad */}
-          <div className="focus-section focus-section-grow">
-            <div className="focus-section-header">
-              <span>📝 Essay Plan</span>
-            </div>
-            <div className="focus-section-body focus-section-body-grow">
+            <div className="focus-plan-area">
+              <div className="focus-collapse-header" style={{ cursor: "default" }}>
+                <span>📝 Essay Plan</span>
+              </div>
               <textarea
-                className="focus-plan-textarea"
-                placeholder="Jot down your ideas, structure, key vocabulary…"
+                placeholder="Ideas, structure, key words…"
                 value={plan}
                 onChange={(e) => setPlan(e.target.value)}
               />
             </div>
           </div>
-        </div>
 
-        {/* Center: textarea + toolbar */}
-        <div className="focus-center">
-          <textarea
-            className="writing-textarea focus-main-textarea"
-            placeholder="Begin writing your essay…"
-            value={essay}
-            onChange={(e) => handleTextChange(e.target.value)}
-            spellCheck
-            autoFocus
-          />
-          <WritingToolbar
-            wordCount={wordCount}
-            charCount={charCount}
-            paraCount={paraCount}
-            minWords={minWords}
-            maxWords={maxWords}
-            timeLimit={timeLimit}
-            hasStarted={hasStarted}
-            hasSaved={!!savedId}
-            onSave={handleSave}
-            onFeedback={handleFeedback}
-            onViewModel={() => setShowModel(true)}
-            isSaving={createMutation.isPending || updateMutation.isPending}
-            isEvaluating={evaluateMutation.isPending}
-          />
-        </div>
+          {/* Center: textarea + toolbar */}
+          <div className="focus-col-center">
+            <textarea
+              className="writing-textarea"
+              placeholder="Begin writing your essay…"
+              value={essay}
+              onChange={(e) => handleTextChange(e.target.value)}
+              spellCheck
+              autoFocus
+            />
+            {toolbar}
+          </div>
 
-        {/* Right panel: structure + checklist + tips */}
-        <div className="focus-panel focus-panel-right">
-          {prompt?.sampleStructure && prompt.sampleStructure.length > 0 && (
-            <div className="focus-section">
-              <div className="focus-section-header">
-                <span>📐 Structure</span>
-              </div>
-              <div className="focus-section-body">
+          {/* Right: structure + checklist + tips */}
+          <div className="focus-col-right">
+            {prompt?.sampleStructure && prompt.sampleStructure.length > 0 && (
+              <FocusCollapsible label="📐 Structure" defaultOpen>
                 {prompt.sampleStructure.map((s, i) => (
-                  <div key={i} style={{ marginBottom: "0.5rem" }}>
-                    <div style={{ fontSize: "0.8rem", fontWeight: 600 }}>{s.paragraph}</div>
-                    <div style={{ fontSize: "0.75rem", color: "var(--text-secondary)" }}>{s.purpose}</div>
+                  <div key={i} style={{ marginBottom: "0.4rem" }}>
+                    <div style={{ fontSize: "0.78rem", fontWeight: 600 }}>{s.paragraph}</div>
+                    <div style={{ fontSize: "0.72rem", color: "var(--text-secondary)" }}>{s.purpose}</div>
                   </div>
                 ))}
-              </div>
-            </div>
-          )}
+              </FocusCollapsible>
+            )}
 
-          {prompt && prompt.evaluationChecklist.length > 0 && (
-            <div className="focus-section">
-              <div className="focus-section-header">
-                <span>✅ Self-Check</span>
-              </div>
-              <div className="focus-section-body">
+            {prompt && prompt.evaluationChecklist.length > 0 && (
+              <FocusCollapsible label={`✅ Checklist (${prompt.evaluationChecklist.length})`}>
                 {prompt.evaluationChecklist.map((item, i) => (
-                  <label
-                    key={i}
-                    style={{ display: "flex", gap: "0.4rem", marginBottom: "0.4rem", fontSize: "0.8rem", cursor: "pointer" }}
-                  >
+                  <label key={i} className="focus-check-item">
                     <input
                       type="checkbox"
                       checked={checklistState[i] ?? false}
                       onChange={() => toggleChecklist(i)}
                     />
-                    <span
-                      style={{
-                        textDecoration: checklistState[i] ? "line-through" : "none",
-                        color: checklistState[i] ? "var(--text-tertiary)" : "var(--text-primary)",
-                      }}
-                    >
-                      {item}
-                    </span>
+                    <span style={{
+                      textDecoration: checklistState[i] ? "line-through" : "none",
+                      color: checklistState[i] ? "var(--text-tertiary)" : "var(--text-primary)",
+                    }}>{item}</span>
                   </label>
                 ))}
-              </div>
-            </div>
-          )}
+              </FocusCollapsible>
+            )}
 
-          <div className="focus-section">
-            <div className="focus-section-header">
-              <span>💡 Tips</span>
-            </div>
-            <div className="focus-section-body">
-              <ul style={{ paddingLeft: "1rem", margin: 0, fontSize: "0.8rem", lineHeight: 1.6 }}>
-                {(prompt?.tips ?? [
-                  "Plan your essay for 5 minutes before writing.",
-                  "Use clear topic sentences for each paragraph.",
-                  "Aim for 4–5 paragraphs.",
-                  "Vary your sentence structure.",
-                  "Leave 5 minutes to proofread.",
-                ]).map((t, i) => (
-                  <li key={i} style={{ marginBottom: "0.3rem" }}>{t}</li>
+            <FocusCollapsible label="💡 Tips">
+              <ul style={{ paddingLeft: "0.9rem", margin: 0 }}>
+                {(prompt?.tips ?? DEFAULT_TIPS).map((t, i) => (
+                  <li key={i} style={{ marginBottom: "0.25rem" }}>{t}</li>
                 ))}
               </ul>
-            </div>
+            </FocusCollapsible>
           </div>
         </div>
 
@@ -357,142 +342,105 @@ export function WritingPracticePage() {
     );
   }
 
-  // ── Normal mode ────────────────────────────────────────────────────────
+  // ── Normal mode ─────────────────────────────────────────────────────────
   return (
-    <div className="writing-workspace">
-      {/* Prompt, chart, checklist — hidden in focus mode */}
-      {!focusMode && (
-        <>
-          {/* Chart for Task 1 */}
-          {prompt?.chartData && (
-            <div className="prompt-box">
-              <div className="prompt-box-header" onClick={() => setChartCollapsed((c) => !c)}>
-                <h3>📊 Study the chart</h3>
-                <span>{chartCollapsed ? "▼ Show chart" : "▲ Hide chart"}</span>
-              </div>
-              {!chartCollapsed && (
-                <div className="prompt-text">
-                  <TaskChart chartData={prompt.chartData} />
-                </div>
-              )}
+    <div className="writing-page">
+      {/* Prompt bar — full width, collapsible, Focus Mode button in header */}
+      {prompt?.chartData && (
+        <div className="writing-prompt-bar" style={{ flexDirection: "column", gap: "var(--space-2)" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
+            <span style={{ fontWeight: 600, fontSize: "0.95rem" }}>📊 Study the chart</span>
+            <div className="writing-prompt-bar prompt-meta" style={{ gap: "var(--space-3)" }}>
+              <button
+                className="btn btn-ghost btn-sm"
+                onClick={() => setChartCollapsed((c) => !c)}
+              >
+                {chartCollapsed ? "▼ Show" : "▲ Hide"}
+              </button>
+              <button className="btn btn-ghost btn-sm" onClick={enterFocus}>⛶ Focus Mode</button>
             </div>
-          )}
-
-          {/* Prompt / topic area */}
-          {isFree ? (
-            <div className="prompt-box">
-              <div className="prompt-box-header" onClick={() => setPromptCollapsed((c) => !c)}>
-                <h3>✏️ Free Practice</h3>
-                <span>{promptCollapsed ? "▼ Show" : "▲ Hide"}</span>
-              </div>
-              {!promptCollapsed && (
-                <div className="prompt-text">
-                  <input
-                    type="text"
-                    className="form-input"
-                    placeholder="Optional: Enter your essay topic or question…"
-                    value={customTopic}
-                    onChange={(e) => setCustomTopic(e.target.value)}
-                  />
-                </div>
-              )}
-            </div>
-          ) : prompt ? (
-            <div className="prompt-box">
-              <div className="prompt-box-header" onClick={() => setPromptCollapsed((c) => !c)}>
-                <h3>
-                  📋 Task Prompt
-                  <span className="badge badge-gray" style={{ marginLeft: 8 }}>{prompt.difficulty}</span>
-                  <span className="badge badge-info" style={{ marginLeft: 4 }}>{prompt.category}</span>
-                </h3>
-                <span>{promptCollapsed ? "▼ Expand" : "▲ Collapse"}</span>
-              </div>
-              {!promptCollapsed && <div className="prompt-text">{prompt.prompt}</div>}
-            </div>
-          ) : null}
-        </>
+          </div>
+          {!chartCollapsed && <TaskChart chartData={prompt.chartData} />}
+        </div>
       )}
 
-      {/* Writing layout */}
-      <div className="writing-layout" style={{ flex: 1, minHeight: 0 }}>
-        <div className="writing-main">
-          {!focusMode && (
-            <div className="writing-main-toolbar">
-              <button
-                className="btn btn-ghost btn-sm focus-mode-btn"
-                onClick={enterFocus}
-                title="Enter focus mode (hides sidebar)"
-              >
-                ⛶ Focus Mode
-              </button>
-            </div>
-          )}
+      {isFree ? (
+        <div className="writing-prompt-bar">
+          <div style={{ flex: 1 }}>
+            {!promptCollapsed && (
+              <input
+                type="text"
+                className="form-input"
+                placeholder="Optional: Enter your essay topic or question…"
+                value={customTopic}
+                onChange={(e) => setCustomTopic(e.target.value)}
+              />
+            )}
+            {promptCollapsed && <span style={{ color: "var(--text-tertiary)", fontSize: "0.9rem" }}>Free Practice</span>}
+          </div>
+          <div className="prompt-meta">
+            <button className="btn btn-ghost btn-sm" onClick={() => setPromptCollapsed((c) => !c)}>
+              {promptCollapsed ? "▼ Show" : "▲ Hide"}
+            </button>
+            <button className="btn btn-ghost btn-sm" onClick={enterFocus}>⛶ Focus Mode</button>
+          </div>
+        </div>
+      ) : prompt && !prompt.chartData ? (
+        <div className="writing-prompt-bar">
+          <div className="prompt-text">
+            {!promptCollapsed ? (
+              <>
+                <div style={{ marginBottom: "var(--space-1)", display: "flex", gap: "var(--space-2)" }}>
+                  <span className="badge badge-gray">{prompt.difficulty}</span>
+                  <span className="badge badge-info">{prompt.category}</span>
+                </div>
+                {prompt.prompt}
+              </>
+            ) : (
+              <span style={{ color: "var(--text-tertiary)", fontSize: "0.9rem" }}>📋 Task Prompt (collapsed)</span>
+            )}
+          </div>
+          <div className="prompt-meta">
+            <button className="btn btn-ghost btn-sm" onClick={() => setPromptCollapsed((c) => !c)}>
+              {promptCollapsed ? "▼ Expand" : "▲ Collapse"}
+            </button>
+            <button className="btn btn-ghost btn-sm" onClick={enterFocus}>⛶ Focus Mode</button>
+          </div>
+        </div>
+      ) : null}
+
+      {/* Writing body: textarea + guide sidebar */}
+      <div className="writing-body">
+        <div className="writing-body-main">
           <textarea
             className="writing-textarea"
-            placeholder={focusMode ? "Just write…" : "Begin writing your essay here…\n\nRemember to plan your structure before you start."}
+            placeholder="Begin writing your essay here…&#10;&#10;Remember to plan your structure before you start."
             value={essay}
             onChange={(e) => handleTextChange(e.target.value)}
             spellCheck
-            autoFocus={focusMode}
           />
+          {toolbar}
         </div>
 
-        {/* Guide sidebar — hidden in focus mode */}
-        {!focusMode && (
-          <>
-            {/* Evaluation checklist */}
-            {prompt && prompt.evaluationChecklist.length > 0 && (
-              <div className="eval-checklist">
-                <div className="eval-checklist-title">Self-Check</div>
-                {prompt.evaluationChecklist.map((item, i) => (
-                  <label key={i} className="eval-check-item">
-                    <input
-                      type="checkbox"
-                      checked={checklistState[i] ?? false}
-                      onChange={() => toggleChecklist(i)}
-                    />
-                    <span className={checklistState[i] ? "checked-item" : ""}>{item}</span>
-                  </label>
-                ))}
+        <div className="writing-guide">
+          {prompt ? (
+            <GuidePanel
+              prompt={prompt}
+              checklistState={checklistState}
+              onToggleChecklist={toggleChecklist}
+            />
+          ) : (
+            <div className="guide-section">
+              <div className="guide-section-header">💡 General Tips</div>
+              <div className="guide-section-body">
+                <ul className="tips-list">
+                  {DEFAULT_TIPS.map((t, i) => <li key={i}>{t}</li>)}
+                </ul>
               </div>
-            )}
-            {prompt ? (
-              <GuidePanel prompt={prompt} />
-            ) : (
-              <div className="sidebar-panel">
-                <div className="sidebar-panel-header">
-                  <h4>💡 General Tips</h4>
-                </div>
-                <div className="sidebar-panel-body">
-                  <ul className="tips-list">
-                    <li>Plan your essay for 5 minutes before writing.</li>
-                    <li>Use clear topic sentences for each paragraph.</li>
-                    <li>Aim for 4–5 paragraphs: intro, 2–3 body, conclusion.</li>
-                    <li>Vary your sentence structure and vocabulary.</li>
-                    <li>Leave 5 minutes to proofread at the end.</li>
-                  </ul>
-                </div>
-              </div>
-            )}
-          </>
-        )}
+            </div>
+          )}
+        </div>
       </div>
-
-      <WritingToolbar
-        wordCount={wordCount}
-        charCount={charCount}
-        paraCount={paraCount}
-        minWords={minWords}
-        maxWords={maxWords}
-        timeLimit={timeLimit}
-        hasStarted={hasStarted}
-        hasSaved={!!savedId}
-        onSave={handleSave}
-        onFeedback={handleFeedback}
-        onViewModel={() => setShowModel(true)}
-        isSaving={createMutation.isPending || updateMutation.isPending}
-        isEvaluating={evaluateMutation.isPending}
-      />
 
       {showWhatsNext && aiFeedback && (
         <WhatsNextWriting

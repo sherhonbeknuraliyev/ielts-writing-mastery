@@ -5,6 +5,7 @@ import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { appRouter } from "./routers/index.js";
 import { createContext } from "./trpc/context.js";
 import { connectDB } from "./db/connection.js";
+import { startBot } from "./telegram/bot.js";
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -29,6 +30,9 @@ async function start() {
   app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
   });
+  if (process.env.TELEGRAM_BOT_TOKEN) {
+    startBot();
+  }
 }
 
 start().catch(console.error);

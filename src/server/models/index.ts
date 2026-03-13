@@ -7,3 +7,5 @@ export { BandUpgradeModel } from "./band-upgrade.model.js";
 export { PromptModel } from "./prompt.model.js";
 export { WritingModel } from "./writing.model.js";
 export type { WritingDocument } from "./writing.model.js";
+export { TelegramStatsModel } from "./telegram-stats.model.js";
+export type { TelegramStatsDocument } from "./telegram-stats.model.js";

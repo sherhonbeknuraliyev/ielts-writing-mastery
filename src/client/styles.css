@@ -678,8 +678,10 @@ textarea:focus {
   box-shadow: inset 0 1px 3px rgba(0,0,0,0.02), 0 0 0 3px var(--accent-subtle);
 }
 
-.focus-mode .writing-textarea {
-  min-height: 70vh;
+.focus-col-center .writing-textarea {
+  flex: 1;
+  min-height: 0;
+  resize: none;
   font-size: 1.1rem;
 }
 
@@ -1594,71 +1596,100 @@ textarea:focus {
 .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
 .grid-auto { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: var(--space-4); }
 
-/* ── Writing Workspace ──────────────────────────────────── */
-.writing-workspace {
+/* ── Writing Page ─────────────────────────────────────────── */
+
+/* Widen page for normal writing */
+.page-content:has(.writing-page) {
+  max-width: 1100px;
+}
+
+.writing-page {
   display: flex;
   flex-direction: column;
+  min-height: calc(100vh - 100px);
+  gap: var(--space-3);
+}
+
+.writing-prompt-bar {
+  display: flex;
+  align-items: flex-start;
   gap: var(--space-4);
-  min-height: calc(100vh - 120px);
-  max-width: 1100px;
-  margin-left: auto;
-  margin-right: auto;
+  padding: var(--space-4) var(--space-5);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
 }
 
-/* Override the page-content max-width when writing workspace is inside it */
-.page-content:has(.writing-workspace) {
-  max-width: 1100px;
+.writing-prompt-bar .prompt-text {
+  flex: 1;
+  font-family: var(--font-reading);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-primary);
 }
 
-.writing-layout {
+.writing-prompt-bar .prompt-meta {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.writing-body {
   display: flex;
   gap: var(--space-4);
-  align-items: stretch;
   flex: 1;
   min-height: 0;
 }
 
-.writing-main {
+.writing-body-main {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
-  flex: 1;
   min-width: 0;
 }
 
-.prompt-box {
-  background: var(--bg-secondary);
+.writing-guide {
+  width: 280px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+  position: sticky;
+  top: var(--space-4);
+}
+
+/* Guide panel section cards */
+.guide-section {
+  background: var(--bg-tertiary);
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius);
   overflow: hidden;
 }
 
-.prompt-box-header {
+.guide-section-header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: var(--space-4) var(--space-5);
+  align-items: center;
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
   cursor: pointer;
-  transition: background var(--transition-fast);
   user-select: none;
 }
 
-.prompt-box-header:hover {
-  background: var(--border-light);
+.guide-section-header:hover {
+  background: var(--bg-secondary);
 }
 
-.prompt-box-header h3 {
-  font-size: var(--text-base);
-  font-weight: 600;
-}
-
-.prompt-text {
-  padding: var(--space-4) var(--space-5);
-  font-family: var(--font-reading);
-  font-size: var(--text-base);
-  line-height: 1.75;
-  border-top: 1px solid var(--border);
-  color: var(--text-primary);
+.guide-section-body {
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  border-top: 1px solid var(--border-light, var(--border));
 }
 
 /* prompt-content alias */
@@ -1674,14 +1705,12 @@ textarea:focus {
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  padding: var(--space-3) var(--space-5);
+  padding: var(--space-3) var(--space-4);
   background: var(--bg-tertiary);
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  position: sticky;
-  bottom: var(--space-4);
-  z-index: 10;
-  box-shadow: var(--shadow-md);
+  border-radius: var(--radius);
+  margin-top: var(--space-2);
+  flex-shrink: 0;
   flex-wrap: wrap;
 }
 
@@ -1727,23 +1756,7 @@ textarea:focus {
 .timer.warning { color: var(--warning); background: var(--warning-light); }
 .timer.danger  { color: var(--error); background: var(--error-light); }
 
-/* Eval checklist */
-.eval-checklist {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: var(--space-4);
-}
-
-.eval-checklist-title {
-  font-size: var(--text-xs);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--text-secondary);
-  margin-bottom: var(--space-3);
-}
-
+/* Checklist items (used in guide panel) */
 .eval-check-item {
   display: flex;
   align-items: flex-start;
@@ -1757,45 +1770,6 @@ textarea:focus {
 .checked-item {
   text-decoration: line-through;
   color: var(--text-tertiary);
-}
-
-/* Sidebar panel (guide, tips) */
-.sidebar-panel {
-  width: 260px;
-  flex-shrink: 0;
-  background: var(--bg-tertiary);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  align-self: flex-start;
-  position: sticky;
-  top: var(--space-4);
-  max-height: calc(100vh - 120px);
-  overflow-y: auto;
-}
-
-.sidebar-panel-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--space-3) var(--space-4);
-  cursor: pointer;
-  border-bottom: 1px solid var(--border);
-  user-select: none;
-  transition: background var(--transition-fast);
-}
-
-.sidebar-panel-header:hover {
-  background: var(--bg-secondary);
-}
-
-.sidebar-panel-header h4 {
-  font-size: var(--text-sm);
-  font-weight: 600;
-}
-
-.sidebar-panel-body {
-  padding: var(--space-4);
 }
 
 .tips-list {
@@ -2507,11 +2481,11 @@ textarea:focus {
 .band-label-badge.band8 { background: var(--accent-light); color: var(--accent); border: 1px solid rgba(42,157,143,0.2); }
 
 /* ── Responsive ──────────────────────────────────────────── */
-@media (max-width: 1024px) {
-  .writing-layout {
+@media (max-width: 900px) {
+  .writing-body {
     flex-direction: column;
   }
-  .sidebar-panel {
+  .writing-guide {
     width: 100%;
     position: static;
     max-height: none;
@@ -2562,8 +2536,6 @@ textarea:focus {
   .writing-toolbar {
     flex-wrap: wrap;
     gap: var(--space-2);
-    position: relative;
-    bottom: auto;
   }
 
   .answer-comparison {
@@ -2669,25 +2641,6 @@ textarea:focus {
   color: var(--text-tertiary);
 }
 
-/* Focus mode button (inline button to enter focus mode) */
-.focus-mode-btn {
-  align-self: flex-start;
-}
-
-/* Focus mode hint text shown inside workspace */
-.focus-mode-hint {
-  text-align: center;
-  font-size: var(--text-sm);
-  color: var(--text-tertiary);
-  margin: 0;
-}
-
-/* Writing main toolbar (row above the textarea for workspace controls) */
-.writing-main-toolbar {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-}
 
 /* "What's Next" panel */
 .whats-next-panel {
@@ -2891,121 +2844,136 @@ textarea:focus {
 }
 
 /* ── Focus Mode Writing (3-panel) ───────────────────────── */
-.focus-writing-container {
-  display: flex;
-  height: 100vh;
-  overflow: hidden;
-  gap: 0;
-}
 
 /* Remove page-content and main-content constraints when focus writing is active */
-.main-content:has(.focus-writing-container) {
+.main-content:has(.focus-writing) {
   padding: 0;
 }
 
-.page-content:has(.focus-writing-container) {
+.page-content:has(.focus-writing) {
   max-width: none;
   padding: 0;
 }
 
-.focus-panel {
-  width: 260px;
+.focus-writing {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.focus-chart-bar {
   flex-shrink: 0;
+  max-height: 200px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+
+.focus-columns {
   display: flex;
-  flex-direction: column;
-  background: var(--bg-secondary);
-  border-right: 1px solid var(--border);
-  overflow-y: auto;
-}
-
-.focus-panel-right {
-  border-right: none;
-  border-left: 1px solid var(--border);
-}
-
-.focus-center {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  padding: var(--space-4);
-  background: var(--bg-primary);
-  gap: var(--space-2);
-}
-
-.focus-main-textarea {
-  flex: 1 !important;
-  min-height: 0 !important;
-  resize: none !important;
-  border-radius: var(--radius) !important;
-}
-
-.focus-section {
-  display: flex;
-  flex-direction: column;
-}
-
-.focus-section-grow {
   flex: 1;
   min-height: 0;
 }
 
-.focus-section-header {
+.focus-col-left,
+.focus-col-right {
+  width: 200px;
+  flex-shrink: 0;
+  background: var(--bg-secondary);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.focus-col-left {
+  border-right: 1px solid var(--border);
+}
+
+.focus-col-right {
+  border-left: 1px solid var(--border);
+}
+
+.focus-col-center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-3);
+  min-width: 0;
+}
+
+.focus-col-center .writing-toolbar {
+  margin-top: var(--space-2);
+  position: static;
+}
+
+/* Collapse sections in focus panels */
+.focus-collapse {
+  border-bottom: 1px solid var(--border-light, var(--border));
+  display: flex;
+  flex-direction: column;
+}
+
+.focus-collapse-grow {
+  flex: 1;
+  min-height: 0;
+}
+
+.focus-collapse-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--space-2) var(--space-3);
-  font-size: 0.8rem;
+  padding: 6px 12px;
+  font-size: 0.72rem;
   font-weight: 600;
   color: var(--text-secondary);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
   cursor: pointer;
   user-select: none;
-  border-bottom: 1px solid var(--border-light, var(--border));
   background: var(--bg-tertiary);
   flex-shrink: 0;
 }
 
-.focus-section-header:hover {
+.focus-collapse-header:hover {
   background: var(--bg-secondary);
 }
 
-.focus-section-body {
-  padding: var(--space-3);
-  font-size: 0.85rem;
-  line-height: 1.6;
+.focus-collapse-body {
+  padding: 8px 12px;
+  font-size: 0.8rem;
+  line-height: 1.5;
 }
 
-.focus-section-body-grow {
+.focus-plan-area {
   flex: 1;
   display: flex;
   flex-direction: column;
   min-height: 0;
 }
 
-.focus-plan-textarea {
-  width: 100%;
+.focus-plan-area textarea {
   flex: 1;
-  min-height: 100px;
+  width: 100%;
   border: none;
   background: transparent;
-  font-family: var(--font-reading, inherit);
-  font-size: 0.85rem;
-  line-height: 1.7;
+  font-family: var(--font-reading);
+  font-size: 0.82rem;
+  line-height: 1.6;
   color: var(--text-primary);
   resize: none;
   outline: none;
-  padding: 0;
+  padding: 8px 12px;
 }
 
-.focus-plan-textarea::placeholder {
+.focus-plan-area textarea::placeholder {
   color: var(--text-tertiary);
 }
 
-/* Make WritingToolbar non-sticky in focus mode */
-.focus-center .writing-toolbar {
-  position: static;
-  border-radius: var(--radius);
-  flex-shrink: 0;
+.focus-check-item {
+  display: flex;
+  gap: 0.35rem;
+  margin-bottom: 0.3rem;
+  font-size: 0.76rem;
+  cursor: pointer;
+  line-height: 1.4;
 }

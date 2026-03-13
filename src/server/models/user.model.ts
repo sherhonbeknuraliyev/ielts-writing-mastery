@@ -1,16 +1,22 @@
 import mongoose, { Schema, type Document } from "mongoose";
 
 export interface UserDocument extends Document {
-  username: string;
-  password: string;
+  telegramId: number;
+  firstName: string;
+  lastName?: string;
+  username?: string;
+  photoUrl?: string;
   createdAt: Date;
   updatedAt: Date;
 }
 
 const userSchemaDB = new Schema<UserDocument>(
   {
-    username: { type: String, required: true, unique: true, trim: true, lowercase: true },
-    password: { type: String, required: true },
+    telegramId: { type: Number, required: true, unique: true },
+    firstName: { type: String, required: true },
+    lastName: { type: String },
+    username: { type: String },
+    photoUrl: { type: String },
   },
   { timestamps: true }
 );

@@ -146,9 +146,18 @@ export function Layout() {
 
             <div className="sidebar-footer">
               <div className="sidebar-user">
-                <div className="sidebar-user-avatar">{user?.username?.[0]?.toUpperCase() ?? "U"}</div>
+                {user?.photoUrl ? (
+                  <img
+                    src={user.photoUrl}
+                    alt={user.firstName}
+                    className="sidebar-user-avatar"
+                    style={{ borderRadius: "50%", width: "2rem", height: "2rem", objectFit: "cover" }}
+                  />
+                ) : (
+                  <div className="sidebar-user-avatar">{user?.firstName?.[0]?.toUpperCase() ?? "U"}</div>
+                )}
                 <div className="sidebar-user-info">
-                  <div className="sidebar-user-name">{user?.username}</div>
+                  <div className="sidebar-user-name">{user?.firstName ?? "Student"}</div>
                   <div className="sidebar-user-role">Student</div>
                 </div>
               </div>
