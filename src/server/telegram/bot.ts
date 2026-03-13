@@ -286,6 +286,11 @@ function todayStr(): string {
   return new Date().toISOString().slice(0, 10);
 }
 
+/** Escape HTML special chars so user/exercise content doesn't break parse_mode:"HTML" */
+function esc(text: string): string {
+  return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
 function pickRandomTip(telegramId: number): { tip: string; index: number } {
   const recent = recentTips.get(telegramId) ?? [];
   const available = IELTS_TIPS.map((_, i) => i).filter((i) => !recent.includes(i));
@@ -335,10 +340,10 @@ function exerciseMessage(ex: SkillExercise, index: number, total: number): strin
   const lines: string[] = [
     `📝 Exercise ${index + 1}/${total} — ${typeLabel(ex.type)}`,
     "",
-    ex.question,
+    esc(ex.question),
   ];
   if (ex.context) {
-    lines.splice(2, 0, `\n_Context:_ ${ex.context}`);
+    lines.splice(2, 0, `\n<i>Context:</i> ${esc(ex.context)}`);
   }
   if (isSubjective(ex.type)) {
     lines.push("", "Type your answer, then I'll show you the model answer.");
@@ -360,7 +365,7 @@ async function sendExercise(
 ): Promise<void> {
   const ex = session.exercises[session.currentIndex];
   await bot.api.sendMessage(chatId, exerciseMessage(ex, session.currentIndex, session.exercises.length), {
-    parse_mode: "Markdown",
+    parse_mode: "HTML",
   });
 }
 
@@ -387,14 +392,14 @@ async function finishSession(
 
   await bot.api.sendMessage(
     chatId,
-    `🎉 *Challenge Complete!*\n\nYou got *${score}/${total}* correct!\n\n${
+    `🎉 <b>Challenge Complete!</b>\n\nYou got <b>${score}/${total}</b> correct!\n\n${
       score === total
         ? "Perfect score! Excellent work! 🏆"
         : score >= Math.ceil(total / 2)
         ? "Good effort! Keep practising to reach band 7+. 💪"
         : "Keep going — every exercise builds your band score. 📚"
-    }\n\n💡 *Writing Tip:* ${tip}`,
-    { parse_mode: "Markdown" }
+    }\n\n💡 <b>Writing Tip:</b> ${tip}`,
+    { parse_mode: "HTML" }
   );
 }
 
@@ -415,9 +420,9 @@ async function handleAnswer(
 
     await bot.api.sendMessage(
       chatId,
-      `📖 *Model Answer:*\n\n${ex.correctAnswer}\n\n_${ex.explanation}_\n\nDid you get it right?`,
+      `📖 <b>Model Answer:</b>\n\n${esc(ex.correctAnswer)}\n\n<i>${esc(ex.explanation)}</i>\n\nDid you get it right?`,
       {
-        parse_mode: "Markdown",
+        parse_mode: "HTML",
         reply_markup: keyboard,
       }
     );
@@ -434,14 +439,14 @@ async function handleAnswer(
     session.score += 1;
     await bot.api.sendMessage(
       chatId,
-      `✅ *Correct!*\n\n"${ex.correctAnswer}" is the right answer.\n\n_${ex.explanation}_`,
-      { parse_mode: "Markdown" }
+      `✅ <b>Correct!</b>\n\n"${esc(ex.correctAnswer)}" is the right answer.\n\n<i>${esc(ex.explanation)}</i>`,
+      { parse_mode: "HTML" }
     );
   } else {
     await bot.api.sendMessage(
       chatId,
-      `❌ *Not quite.*\n\nYour answer: "${userAnswer}"\nCorrect answer: "${ex.correctAnswer}"\n\n_${ex.explanation}_`,
-      { parse_mode: "Markdown" }
+      `❌ <b>Not quite.</b>\n\nYour answer: "${esc(userAnswer)}"\nCorrect answer: "${esc(ex.correctAnswer)}"\n\n<i>${esc(ex.explanation)}</i>`,
+      { parse_mode: "HTML" }
     );
   }
 
@@ -494,14 +499,15 @@ const COMMANDS_LIST =
 const ASK_SYSTEM_PROMPT =
   "You are an expert IELTS writing tutor. Help students improve their writing skills for band 7.5+. " +
   "Be concise, practical, and encouraging. Give specific examples when possible. Keep responses under 300 words. " +
-  "IMPORTANT: Do NOT use Markdown formatting (no **, no #, no >, no ```, no *). Use plain text only. " +
-  "Use line breaks, numbered lists (1. 2. 3.), and quotes with quotation marks for formatting.";
+  "IMPORTANT: Format using Telegram HTML tags ONLY: <b>bold</b>, <i>italic</i>, <u>underline</u>, <code>code</code>. " +
+  "Do NOT use Markdown (no **, no #, no >, no ```). Use line breaks and numbered lists for structure.";
 
 const REVIEW_SYSTEM_PROMPT =
   "You are an IELTS examiner. Review this paragraph and provide: " +
   "1) Estimated band range 2) 2-3 specific strengths 3) 2-3 areas for improvement with corrected examples. " +
   "Be encouraging but honest. Keep it under 200 words. " +
-  "IMPORTANT: Do NOT use Markdown formatting (no **, no #, no >, no ```, no *). Use plain text only.";
+  "IMPORTANT: Format using Telegram HTML tags ONLY: <b>bold</b>, <i>italic</i>, <u>underline</u>. " +
+  "Do NOT use Markdown (no **, no #, no >, no ```). Use line breaks for structure.";
 
 // ── Bot factory ───────────────────────────────────────────────────────────
 
@@ -530,14 +536,14 @@ export function startBot(): void {
     });
 
     await ctx.reply(
-      `👋 Welcome${user ? `, *${user.firstName}*` : ""}!\n\nI'm your *IELTS Writing Mastery* companion. Use me alongside the web app to practise daily.\n\n${COMMANDS_LIST}`,
-      { parse_mode: "Markdown" }
+      `👋 Welcome${user ? `, <b>${user.firstName}</b>` : ""}!\n\nI'm your <b>IELTS Writing Mastery</b> companion. Use me alongside the web app to practise daily.\n\n${COMMANDS_LIST}`,
+      { parse_mode: "HTML" }
     );
   });
 
   // /help
   bot.command("help", async (ctx) => {
-    await ctx.reply(`📋 *Available Commands*\n\n${COMMANDS_LIST}`, { parse_mode: "Markdown" });
+    await ctx.reply(`📋 <b>Available Commands</b>\n\n${COMMANDS_LIST}`, { parse_mode: "HTML" });
   });
 
   // /tip
@@ -546,15 +552,15 @@ export function startBot(): void {
     if (!telegramId) return;
 
     const { tip } = pickRandomTip(telegramId);
-    await ctx.reply(`💡 *IELTS Writing Tip*\n\n${tip}`, { parse_mode: "Markdown" });
+    await ctx.reply(`💡 <b>IELTS Writing Tip</b>\n\n${tip}`, { parse_mode: "HTML" });
   });
 
   // /word
   bot.command("word", async (ctx) => {
     const word = pickRandomWord();
     await ctx.reply(
-      `📚 *Word of the Day*\n\ncollocation: _"${word.collocation}"_\nBand: ${word.band}\n\n${word.definition}\n\nExample: _"${word.example}"_\n\nTry using this in your next essay! 💡`,
-      { parse_mode: "Markdown" }
+      `📚 <b>Word of the Day</b>\n\ncollocation: <i>"${word.collocation}"</i>\nBand: ${word.band}\n\n${word.definition}\n\nExample: <i>"${word.example}"</i>\n\nTry using this in your next essay! 💡`,
+      { parse_mode: "HTML" }
     );
   });
 
@@ -573,7 +579,7 @@ export function startBot(): void {
       return;
     }
 
-    await ctx.replyWithStream(streamAI(ASK_SYSTEM_PROMPT, question));
+    await ctx.replyWithStream(streamAI(ASK_SYSTEM_PROMPT, question), {}, { parse_mode: "HTML" });
   });
 
   // /review
@@ -629,8 +635,8 @@ export function startBot(): void {
       };
       sessions.set(telegramId, session);
 
-      await ctx.reply("🚀 *Daily Challenge Started!*\n\nYou have 5 exercises. Good luck! 💪", {
-        parse_mode: "Markdown",
+      await ctx.reply("🚀 <b>Daily Challenge Started!</b>\n\nYou have 5 exercises. Good luck! 💪", {
+        parse_mode: "HTML",
       });
       await sendExercise(bot, ctx.chat.id, session);
     } catch {
@@ -675,7 +681,7 @@ export function startBot(): void {
       };
       sessions.set(telegramId, session);
 
-      await ctx.reply("🎯 *Quick Practice!*\n\nHere's your exercise:", { parse_mode: "Markdown" });
+      await ctx.reply("🎯 <b>Quick Practice!</b>\n\nHere's your exercise:", { parse_mode: "HTML" });
       await sendExercise(bot, ctx.chat.id, session);
     } catch {
       await ctx.reply("❌ Failed to load an exercise. Please try again.");
@@ -735,8 +741,8 @@ export function startBot(): void {
     }
 
     await ctx.reply(
-      `🔥 *Your Streak: ${streak} day${streak === 1 ? "" : "s"}*\n\nKeep it up with /daily every day!`,
-      { parse_mode: "Markdown" }
+      `🔥 <b>Your Streak: ${streak} day${streak === 1 ? "" : "s"}</b>\n\nKeep it up with /daily every day!`,
+      { parse_mode: "HTML" }
     );
   });
 
@@ -759,8 +765,8 @@ export function startBot(): void {
     const dailySessions = all.filter((s) => s.type === "daily").length;
 
     await ctx.reply(
-      `📊 *Your Stats*\n\n• Total exercises: *${totalDone}*\n• Correct answers: *${totalCorrect}*\n• Accuracy: *${accuracy}%*\n• Daily sessions: *${dailySessions}*`,
-      { parse_mode: "Markdown" }
+      `📊 <b>Your Stats</b>\n\n• Total exercises: <b>${totalDone}</b>\n• Correct answers: <b>${totalCorrect}</b>\n• Accuracy: <b>${accuracy}%</b>\n• Daily sessions: <b>${dailySessions}</b>`,
+      { parse_mode: "HTML" }
     );
   });
 
@@ -800,9 +806,9 @@ export function startBot(): void {
     await bot.api.sendMessage(
       ctx.chat!.id,
       isCorrect
-        ? `✅ *Marked correct!*\n\n_${ex.explanation}_`
-        : `❌ *Marked incorrect.*\n\n_${ex.explanation}_`,
-      { parse_mode: "Markdown" }
+        ? `✅ <b>Marked correct!</b>\n\n<i>${esc(ex.explanation)}</i>`
+        : `❌ <b>Marked incorrect.</b>\n\n<i>${esc(ex.explanation)}</i>`,
+      { parse_mode: "HTML" }
     );
 
     session.currentIndex += 1;
@@ -826,7 +832,7 @@ export function startBot(): void {
     // AI essay review flow
     if (awaitingReview.has(telegramId)) {
       awaitingReview.delete(telegramId);
-      await ctx.replyWithStream(streamAI(REVIEW_SYSTEM_PROMPT, ctx.message.text));
+      await ctx.replyWithStream(streamAI(REVIEW_SYSTEM_PROMPT, ctx.message.text), {}, { parse_mode: "HTML" });
       return;
     }
 
