@@ -1,4 +1,7 @@
-import { Telegraf, Markup } from "telegraf";
+import { Bot, Context, InlineKeyboard } from "grammy";
+import { autoRetry } from "@grammyjs/auto-retry";
+import { stream, type StreamFlavor } from "@grammyjs/stream";
+import OpenAI from "openai";
 import type { SkillExercise } from "@shared/schemas/skill.schema.js";
 import { UserModel } from "../models/user.model.js";
 import { SkillModel } from "../models/skill.model.js";
@@ -227,6 +230,8 @@ const ACADEMIC_WORDS: AcademicWord[] = [
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
+type MyContext = StreamFlavor<Context>;
+
 interface ChallengeSession {
   exercises: SkillExercise[];
   currentIndex: number;
@@ -239,9 +244,32 @@ interface ChallengeSession {
 // ── In-memory stores ──────────────────────────────────────────────────────
 
 const sessions = new Map<number, ChallengeSession>();
+const awaitingReview = new Set<number>();
 
 // Track last 5 tip indices shown per user to avoid immediate repeats
 const recentTips = new Map<number, number[]>();
+
+// ── AI client ─────────────────────────────────────────────────────────────
+
+const deepseek = new OpenAI({
+  apiKey: process.env.DEEPSEEK_API_KEY,
+  baseURL: "https://api.deepseek.com",
+});
+
+async function* streamAI(systemPrompt: string, userMessage: string): AsyncGenerator<string> {
+  const aiStream = await deepseek.chat.completions.create({
+    model: "deepseek-chat",
+    messages: [
+      { role: "system", content: systemPrompt },
+      { role: "user", content: userMessage },
+    ],
+    stream: true,
+  });
+  for await (const chunk of aiStream) {
+    const delta = chunk.choices[0]?.delta?.content;
+    if (delta) yield delta;
+  }
+}
 
 // ── Helpers ───────────────────────────────────────────────────────────────
 
@@ -326,18 +354,18 @@ async function fetchAllExercises(): Promise<SkillExercise[]> {
 }
 
 async function sendExercise(
-  bot: Telegraf,
+  bot: Bot<MyContext>,
   chatId: number,
   session: ChallengeSession
 ): Promise<void> {
   const ex = session.exercises[session.currentIndex];
-  await bot.telegram.sendMessage(chatId, exerciseMessage(ex, session.currentIndex, session.exercises.length), {
+  await bot.api.sendMessage(chatId, exerciseMessage(ex, session.currentIndex, session.exercises.length), {
     parse_mode: "Markdown",
   });
 }
 
 async function finishSession(
-  bot: Telegraf,
+  bot: Bot<MyContext>,
   chatId: number,
   telegramId: number,
   session: ChallengeSession
@@ -357,7 +385,7 @@ async function finishSession(
 
   const { tip } = pickRandomTip(telegramId);
 
-  await bot.telegram.sendMessage(
+  await bot.api.sendMessage(
     chatId,
     `🎉 *Challenge Complete!*\n\nYou got *${score}/${total}* correct!\n\n${
       score === total
@@ -371,7 +399,7 @@ async function finishSession(
 }
 
 async function handleAnswer(
-  bot: Telegraf,
+  bot: Bot<MyContext>,
   chatId: number,
   telegramId: number,
   session: ChallengeSession,
@@ -381,15 +409,16 @@ async function handleAnswer(
 
   if (isSubjective(ex.type)) {
     session.awaitingSelfAssess = true;
-    await bot.telegram.sendMessage(
+    const keyboard = new InlineKeyboard()
+      .text("✅ Yes", `correct_yes:${session.currentIndex}`)
+      .text("❌ No", `correct_no:${session.currentIndex}`);
+
+    await bot.api.sendMessage(
       chatId,
       `📖 *Model Answer:*\n\n${ex.correctAnswer}\n\n_${ex.explanation}_\n\nDid you get it right?`,
       {
         parse_mode: "Markdown",
-        ...Markup.inlineKeyboard([
-          Markup.button.callback("✅ Yes", `correct_yes:${session.currentIndex}`),
-          Markup.button.callback("❌ No", `correct_no:${session.currentIndex}`),
-        ]),
+        reply_markup: keyboard,
       }
     );
     return;
@@ -403,13 +432,13 @@ async function handleAnswer(
 
   if (isCorrect) {
     session.score += 1;
-    await bot.telegram.sendMessage(
+    await bot.api.sendMessage(
       chatId,
       `✅ *Correct!*\n\n"${ex.correctAnswer}" is the right answer.\n\n_${ex.explanation}_`,
       { parse_mode: "Markdown" }
     );
   } else {
-    await bot.telegram.sendMessage(
+    await bot.api.sendMessage(
       chatId,
       `❌ *Not quite.*\n\nYour answer: "${userAnswer}"\nCorrect answer: "${ex.correctAnswer}"\n\n_${ex.explanation}_`,
       { parse_mode: "Markdown" }
@@ -453,10 +482,23 @@ const COMMANDS_LIST =
   "• /practice — quick single exercise\n" +
   "• /tip — get a random IELTS writing tip\n" +
   "• /word — get an academic word or collocation\n" +
+  "• /ask — ask an IELTS writing question\n" +
+  "• /review — get AI feedback on your paragraph\n" +
   "• /streak — see your current streak\n" +
   "• /stats — view your performance stats\n" +
   "• /cancel — stop an active challenge\n" +
   "• /help — show this list";
+
+// ── System prompts ─────────────────────────────────────────────────────────
+
+const ASK_SYSTEM_PROMPT =
+  "You are an expert IELTS writing tutor. Help students improve their writing skills for band 7.5+. " +
+  "Be concise, practical, and encouraging. Give specific examples when possible. Keep responses under 300 words.";
+
+const REVIEW_SYSTEM_PROMPT =
+  "You are an IELTS examiner. Review this paragraph and provide: " +
+  "1) Estimated band range 2) 2-3 specific strengths 3) 2-3 areas for improvement with corrected examples. " +
+  "Be encouraging but honest. Keep it under 200 words.";
 
 // ── Bot factory ───────────────────────────────────────────────────────────
 
@@ -467,7 +509,10 @@ export function startBot(): void {
     return;
   }
 
-  const bot = new Telegraf(token);
+  const bot = new Bot<MyContext>(token);
+
+  bot.api.config.use(autoRetry());
+  bot.use(stream());
 
   // /start
   bot.command("start", async (ctx) => {
@@ -507,6 +552,40 @@ export function startBot(): void {
     await ctx.reply(
       `📚 *Word of the Day*\n\ncollocation: _"${word.collocation}"_\nBand: ${word.band}\n\n${word.definition}\n\nExample: _"${word.example}"_\n\nTry using this in your next essay! 💡`,
       { parse_mode: "Markdown" }
+    );
+  });
+
+  // /ask
+  bot.command("ask", async (ctx) => {
+    if (!process.env.DEEPSEEK_API_KEY) {
+      await ctx.reply("AI features are not configured yet.");
+      return;
+    }
+
+    const question = ctx.match?.trim();
+    if (!question) {
+      await ctx.reply(
+        "What would you like to know about IELTS writing? Try: /ask How do I structure a Task 2 essay?"
+      );
+      return;
+    }
+
+    await ctx.replyWithStream(streamAI(ASK_SYSTEM_PROMPT, question));
+  });
+
+  // /review
+  bot.command("review", async (ctx) => {
+    if (!process.env.DEEPSEEK_API_KEY) {
+      await ctx.reply("AI features are not configured yet.");
+      return;
+    }
+
+    const telegramId = ctx.from?.id;
+    if (!telegramId) return;
+
+    awaitingReview.add(telegramId);
+    await ctx.reply(
+      "📝 Please paste your essay paragraph below and I'll give you detailed IELTS feedback."
     );
   });
 
@@ -605,6 +684,8 @@ export function startBot(): void {
     const telegramId = ctx.from?.id;
     if (!telegramId) return;
 
+    awaitingReview.delete(telegramId);
+
     if (sessions.delete(telegramId)) {
       await ctx.reply("Challenge cancelled. Use /daily or /practice to start a new one.");
     } else {
@@ -681,16 +762,15 @@ export function startBot(): void {
   });
 
   // Inline keyboard callbacks (self-assessment)
-  bot.on("callback_query", async (ctx) => {
+  bot.on("callback_query:data", async (ctx) => {
     const telegramId = ctx.from?.id;
     if (!telegramId) return;
 
-    const data = "data" in ctx.callbackQuery ? ctx.callbackQuery.data : undefined;
-    if (!data) return;
+    const data = ctx.callbackQuery.data;
 
     const session = sessions.get(telegramId);
     if (!session) {
-      await ctx.answerCbQuery("No active session.");
+      await ctx.answerCallbackQuery("No active session.");
       return;
     }
 
@@ -698,23 +778,23 @@ export function startBot(): void {
     const index = parseInt(indexStr, 10);
 
     if (index !== session.currentIndex) {
-      await ctx.answerCbQuery("This was a previous exercise.");
+      await ctx.answerCallbackQuery("This was a previous exercise.");
       return;
     }
 
     if (!session.awaitingSelfAssess) {
-      await ctx.answerCbQuery("Not waiting for self-assessment.");
+      await ctx.answerCallbackQuery("Not waiting for self-assessment.");
       return;
     }
 
     const isCorrect = action === "correct_yes";
     if (isCorrect) session.score += 1;
 
-    await ctx.answerCbQuery(isCorrect ? "Great!" : "Keep practising!");
-    await ctx.editMessageReplyMarkup(undefined);
+    await ctx.answerCallbackQuery(isCorrect ? "Great!" : "Keep practising!");
+    await ctx.editMessageReplyMarkup({ reply_markup: undefined });
 
     const ex = session.exercises[session.currentIndex];
-    await bot.telegram.sendMessage(
+    await bot.api.sendMessage(
       ctx.chat!.id,
       isCorrect
         ? `✅ *Marked correct!*\n\n_${ex.explanation}_`
@@ -732,13 +812,20 @@ export function startBot(): void {
     }
   });
 
-  // Text message handler — answer to active challenge
-  bot.on("text", async (ctx) => {
+  // Text message handler — review, or answer to active challenge
+  bot.on("message:text", async (ctx) => {
     const telegramId = ctx.from?.id;
     if (!telegramId) return;
 
     // Ignore commands
     if (ctx.message.text.startsWith("/")) return;
+
+    // AI essay review flow
+    if (awaitingReview.has(telegramId)) {
+      awaitingReview.delete(telegramId);
+      await ctx.replyWithStream(streamAI(REVIEW_SYSTEM_PROMPT, ctx.message.text));
+      return;
+    }
 
     const session = sessions.get(telegramId);
     if (!session) {
@@ -755,9 +842,9 @@ export function startBot(): void {
   });
 
   // Launch
-  bot.launch();
+  bot.start();
   console.log("Telegram bot started");
 
-  process.once("SIGINT", () => bot.stop("SIGINT"));
-  process.once("SIGTERM", () => bot.stop("SIGTERM"));
+  process.once("SIGINT", () => bot.stop());
+  process.once("SIGTERM", () => bot.stop());
 }
