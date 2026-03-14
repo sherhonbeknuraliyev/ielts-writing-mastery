@@ -1,4 +1,4 @@
-.PHONY: dev stop restart ngrok logs
+.PHONY: dev stop restart ngrok logs migrate migrate-down migrate-status seed seed-fresh
 
 dev:
 	npm run dev
@@ -12,3 +12,18 @@ restart: stop dev
 
 ngrok:
 	ngrok http 3000
+
+migrate:
+	npm run migrate:up
+
+migrate-down:
+	npm run migrate:down
+
+migrate-status:
+	npm run migrate:status
+
+seed:
+	npm run db:seed
+
+seed-fresh:
+	npm run db:seed:fresh

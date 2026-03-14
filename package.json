@@ -16,7 +16,14 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "db:seed": "tsx src/server/db/seed.ts"
+    "db:seed": "tsx src/server/db/seed-runner.ts run",
+    "db:seed:fresh": "tsx src/server/db/seed-runner.ts run --fresh",
+    "db:seed:status": "tsx src/server/db/seed-runner.ts status",
+    "migrate": "tsx src/server/db/migrate.ts",
+    "migrate:up": "tsx src/server/db/migrate.ts up",
+    "migrate:down": "tsx src/server/db/migrate.ts down",
+    "migrate:status": "tsx src/server/db/migrate.ts status",
+    "migrate:create": "tsx src/server/db/migrate.ts create"
   },
   "dependencies": {
     "@grammyjs/auto-retry": "^2.0.2",
